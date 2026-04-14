@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Unanständigkeit</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0a0a10;--bg2:#11111c;--surface:#181825;--border:#2e2e48;
+  --accent:#c084fc;--accent2:#a855f7;--accent3:#7c3aed;
+  --glow:rgba(192,132,252,.18);--glow2:rgba(168,85,247,.35);
+  --txt:#e8e4f0;--txt2:#a89fc0;--txt3:#6b6488;--danger:#f87171;--gold:#f0d080;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg)}
+body{
+  font-family:'Cormorant Garamond',Georgia,serif;color:var(--txt);
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  padding:0 0 120px;position:relative;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 10%,rgba(124,58,237,.12) 0%,transparent 70%),
+    radial-gradient(ellipse 50% 60% at 80% 80%,rgba(192,132,252,.08) 0%,transparent 70%);
+}
+.wrapper{width:100%;max-width:540px;padding:16px;position:relative;z-index:1}
+
+/* ── Header ── */
+.header{text-align:center;padding:36px 0 20px;user-select:none}
+.eyebrow{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.25em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:10px;opacity:.8}
+.header h1{font-size:3rem;font-weight:300;letter-spacing:-.01em;line-height:1}
+.header h1 em{font-style:italic;color:var(--accent)}
+.header-sub{margin-top:8px;font-size:.85rem;font-style:italic;color:var(--txt3);letter-spacing:.05em}
+
+/* ── Card ── */
+.card{
+  background:var(--surface);border:1px solid var(--border);border-radius:18px;
+  padding:24px;margin-bottom:16px;position:relative;overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.4;
+}
+
+/* ── Section title ── */
+.stitle{
+  font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--txt3);margin-bottom:14px;
+  display:flex;align-items:center;gap:10px;
+}
+.stitle::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── Form fields ── */
+.field{margin-bottom:16px}.field:last-child{margin-bottom:0}
+.field label{
+  display:block;font-family:'DM Mono',monospace;font-size:.65rem;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--txt3);margin-bottom:7px;
+}
+.field input[type="text"],.field input[type="number"],.field input[type="password"]{
+  width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:10px;
+  padding:.7rem 1rem;font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;
+  color:var(--txt);transition:.2s;-webkit-appearance:none;
+}
+.field input:focus{outline:none;border-color:var(--accent2);box-shadow:0 0 0 3px var(--glow)}
+.field input::placeholder{color:var(--txt3)}
+
+/* ── Chips ── */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;
+  border:1px solid var(--border);background:var(--bg2);
+  font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--txt2);cursor:pointer;transition:.2s;user-select:none;
+}
+.chip:hover{border-color:var(--accent2);color:var(--accent)}
+.chip input[type=checkbox]{display:none}
+.chip.active{background:rgba(124,58,237,.2);border-color:var(--accent2);color:var(--accent)}
+.chip-dot{width:6px;height:6px;border-radius:50%;background:var(--txt3);transition:.2s;flex-shrink:0}
+.chip.active .chip-dot{background:var(--accent)}
+
+/* ── Buttons ── */
+.btn{
+  width:100%;padding:.8rem 1rem;
+  background:linear-gradient(135deg,var(--accent3),var(--accent2));
+  border:0;border-radius:12px;color:#fff;
+  font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;font-weight:600;
+  letter-spacing:.03em;cursor:pointer;transition:.25s;position:relative;overflow:hidden;
+}
+.btn::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.12),transparent);opacity:0;transition:.2s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 8px 28px var(--glow2)}.btn:hover::after{opacity:1}
+.btn:active{transform:translateY(0)}
+.btn-back{
+  width:100%;padding:.65rem 1rem;background:transparent;
+  border:1px solid var(--border);border-radius:12px;color:var(--txt3);
+  font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;
+  cursor:pointer;transition:.2s;margin-top:8px;
+}
+.btn-back:hover{border-color:var(--accent2);color:var(--accent)}
+
+/* ── Login msg ── */
+.login-msg{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--danger);
+  margin-top:10px;min-height:1.2em;letter-spacing:.05em}
+
+/* ── Mode selection grid ── */
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mode-card{
+  background:var(--bg2);border:1px solid var(--border);border-radius:16px;
+  padding:18px 14px;cursor:pointer;transition:.25s;text-align:left;user-select:none;
+  display:flex;flex-direction:column;gap:6px;
+}
+.mode-card:hover{border-color:var(--accent2);transform:translateY(-2px);box-shadow:0 8px 24px var(--glow)}
+.mode-card:active{transform:translateY(0)}
+.mode-icon{font-size:1.5rem;line-height:1}
+.mode-name{
+  font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--txt2);
+}
+.mode-desc{font-size:.85rem;font-style:italic;color:var(--txt3);line-height:1.35}
+
+/* ── Single-cat list ── */
+.single-cat-list{display:flex;flex-direction:column;gap:8px}
+.single-cat-opt{
+  background:var(--bg2);border:1px solid var(--border);border-radius:12px;
+  padding:12px 16px;cursor:pointer;transition:.2s;
+  font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--txt2);display:flex;align-items:center;gap:10px;
+}
+.single-cat-opt:hover{border-color:var(--accent2);color:var(--accent)}
+.single-cat-opt.selected{background:rgba(124,58,237,.2);border-color:var(--accent2);color:var(--accent)}
+.single-cat-opt .chip-dot{background:var(--txt3)}
+.single-cat-opt.selected .chip-dot{background:var(--accent)}
+
+/* ── Game meta ── */
+.game-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.meta-cell{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px}
+.meta-label{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--txt3);margin-bottom:4px}
+.meta-value{font-size:1.1rem;font-weight:600;color:var(--accent)}
+
+/* ── Challenge card ── */
+.challenge-wrap{
+  background:var(--surface);border:1px solid var(--border);border-radius:18px;
+  padding:32px 28px;min-height:160px;display:flex;align-items:center;
+  justify-content:center;text-align:center;position:relative;overflow:hidden;
+  opacity:0;transition:opacity .4s ease;margin-bottom:14px;
+}
+.challenge-wrap.visible{opacity:1}
+.challenge-wrap::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(124,58,237,.1),transparent)}
+.challenge-glyph{position:absolute;top:14px;right:18px;font-size:.6rem;
+  font-family:'DM Mono',monospace;color:var(--txt3);letter-spacing:.1em;opacity:.5}
+.challenge-text{font-size:1.55rem;font-weight:400;line-height:1.45;
+  color:var(--txt);font-style:italic;position:relative;z-index:1}
+
+/* ── Progress ── */
+.progress-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:14px}
+.progress-labels{display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;color:var(--txt3);margin-bottom:7px}
+.progress-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent3),var(--accent));border-radius:2px;transition:width .5s ease;width:0%}
+
+/* ── Timer ── */
+.timer-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:24px;margin-bottom:14px}
+.timer-body{display:flex;flex-direction:column;align-items:center;gap:14px}
+.timer-arc-wrap{position:relative;width:110px;height:110px;display:flex;align-items:center;justify-content:center}
+.timer-arc-wrap svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.timer-track{fill:none;stroke:var(--border);stroke-width:4}
+.timer-arc{fill:none;stroke:var(--gold);stroke-width:4;stroke-linecap:round;transition:stroke-dashoffset .9s linear,stroke .5s}
+.timer-arc.warn{stroke:#f87171}
+.timer-center{display:flex;flex-direction:column;align-items:center;position:relative;z-index:1}
+.timer-digits{font-family:'DM Mono',monospace;font-size:1.6rem;font-weight:500;color:var(--gold);letter-spacing:.02em;line-height:1;transition:color .5s}
+.timer-digits.warn{color:#f87171}
+.timer-lbl{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--txt3);margin-top:3px}
+.timer-start{background:rgba(240,208,128,.12);border:1px solid rgba(240,208,128,.35);border-radius:10px;padding:8px 24px;color:var(--gold);font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:.2s}
+.timer-start:hover{background:rgba(240,208,128,.22)}
+.timer-done{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:#f87171;display:none}
+
+/* ── Choice list ── */
+.choice-list{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.choice-item{
+  background:var(--bg2);border:1px solid var(--border);border-radius:14px;
+  padding:16px 18px;cursor:pointer;transition:.2s;text-align:left;
+  font-size:1.1rem;font-style:italic;color:var(--txt);line-height:1.4;
+}
+.choice-item:hover{border-color:var(--accent2);background:rgba(124,58,237,.12);color:var(--accent)}
+.choice-cat{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--txt3);margin-bottom:5px}
+
+/* ── Dice ── */
+.dice-wrap{display:flex;flex-direction:column;align-items:center;gap:24px;padding:8px 0}
+.dice-pair{display:flex;gap:24px;justify-content:center}
+.die-slot{display:flex;flex-direction:column;align-items:center;gap:8px}
+.die{
+  width:120px;height:120px;background:var(--surface);border:1px solid var(--border);
+  border-radius:20px;display:flex;align-items:center;justify-content:center;
+  font-size:1.05rem;font-style:italic;color:var(--txt);line-height:1.25;
+  cursor:pointer;transition:.3s;padding:12px;text-align:center;user-select:none;position:relative;overflow:hidden;
+}
+.die::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(124,58,237,.1),transparent)}
+.die:hover{border-color:var(--accent2);transform:scale(1.04)}
+.die.rolling{animation:roll .5s ease}
+@keyframes roll{0%{transform:scale(.9) rotate(-4deg)}50%{transform:scale(1.06) rotate(3deg)}100%{transform:scale(1) rotate(0)}}
+.die-label{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--txt3)}
+.dice-hint{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);text-align:center}
+.dice-player{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--txt3);text-align:center;margin-bottom:4px}
+.dice-player-name{font-size:1.3rem;font-style:italic;font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;color:var(--accent);text-align:center;line-height:1}
+.dice-result{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px 24px;text-align:center;min-height:72px;display:flex;align-items:center;justify-content:center;font-size:1.35rem;font-style:italic;color:var(--txt);line-height:1.4;opacity:0;transition:opacity .4s ease;width:100%}
+.dice-result.visible{opacity:1}
+.dice-result strong{color:var(--accent);font-style:normal;font-weight:600}
+.dice-btn{
+  background:linear-gradient(135deg,var(--accent3),var(--accent2));
+  border:0;border-radius:14px;padding:14px 40px;color:#fff;
+  font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;font-weight:600;
+  letter-spacing:.04em;cursor:pointer;transition:.25s;box-shadow:0 8px 24px var(--glow2);
+}
+.dice-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px var(--glow2)}
+
+/* ── Fim de jogo ── */
+.fim-wrap{display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;padding:40px 24px}
+.fim-icon{font-size:3rem;line-height:1}
+.fim-title{font-size:2.2rem;font-weight:300}
+.fim-title em{font-style:italic;color:var(--accent)}
+.fim-sub{font-style:italic;color:var(--txt2);font-size:1rem;line-height:1.6}
+
+/* ── Fixed next button ── */
+#proximoBtn{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  width:min(540px,calc(100vw - 32px));padding:16px;
+  background:linear-gradient(135deg,var(--accent3),var(--accent2));
+  border:0;border-radius:16px;color:#fff;
+  font-family:'Cormorant Garamond',Georgia,serif;font-size:1.15rem;font-weight:600;
+  letter-spacing:.04em;cursor:pointer;transition:.25s;
+  box-shadow:0 12px 36px rgba(124,58,237,.5);z-index:50;user-select:none;
+}
+#proximoBtn:hover:not(:disabled){transform:translateX(-50%) translateY(-2px);box-shadow:0 16px 44px rgba(124,58,237,.65)}
+#proximoBtn:disabled{background:var(--border);color:var(--txt3);box-shadow:none;cursor:not-allowed}
+#proximoBtn.hidden{display:none}
+
+/* ── Secret overlay ── */
+#secretScreen{
+  display:none;position:fixed;inset:0;z-index:300;background:var(--bg);
+  flex-direction:column;align-items:center;justify-content:center;
+  gap:24px;text-align:center;padding:32px;
+}
+.secret-hint{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--txt3)}
+.secret-name{font-size:2rem;font-weight:300;font-style:italic}
+.secret-name em{color:var(--accent)}
+.secret-btn{
+  background:linear-gradient(135deg,var(--accent3),var(--accent2));
+  border:0;border-radius:16px;padding:16px 48px;color:#fff;
+  font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;font-weight:600;
+  letter-spacing:.04em;cursor:pointer;transition:.25s;box-shadow:0 8px 28px var(--glow2);
+}
+.secret-btn:hover{transform:translateY(-2px)}
+
+/* ── Transition overlay ── */
+#transition{display:none;position:fixed;inset:0;z-index:200;pointer-events:none;background:var(--bg)}
+@keyframes curtain{0%{opacity:0}20%{opacity:1}75%{opacity:.95}100%{opacity:0}}
+
+/* ── Animations ── */
+@keyframes pulse{0%,100%{transform:scale(1)}40%{transform:scale(1.05)}}
+.pulse{animation:pulse .6s ease}
+@keyframes wordIn{0%{opacity:0;transform:translateY(6px)}100%{opacity:1;transform:translateY(0)}}
+.w{display:inline;opacity:0;animation:wordIn .35s ease forwards}
+
+/* ── Screen visibility ── */
+.screen{display:none}
+.screen.active{display:block}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="header">
+    <div class="eyebrow">Jogo adulto</div>
+    <h1>Unan<em>stän</em>digkeit</h1>
+    <div class="header-sub">Nur für Erwachsene &nbsp;·&nbsp; Somente para adultos</div>
+  </div>
+
+  <!-- ══ TELA 1: LOGIN ══════════════════════════════════════════════ -->
+  <div id="s-login" class="screen active">
+    <div class="card">
+      <div class="stitle">Acesso</div>
+      <div class="field"><label for="usuario">Verantwortlicher Erwachsener</label><input id="usuario" type="text" autocomplete="username"/></div>
+      <div class="field"><label for="senha">Geheime Zeichenfolge</label><input id="senha" type="password" autocomplete="current-password"/></div>
+      <button id="entrarBtn" class="btn">Eintreten</button>
+      <div class="login-msg" id="loginMsg"></div>
+    </div>
+  </div>
+
+  <!-- ══ TELA 2: SELEÇÃO DE MODO ═══════════════════════════════════ -->
+  <div id="s-mode" class="screen">
+    <div class="card">
+      <div class="stitle">Escolha o modo</div>
+      <div class="mode-grid" id="modeGrid">
+        <div class="mode-card" data-mode="classico">
+          <div class="mode-icon">✦</div>
+          <div class="mode-name">Clássico</div>
+          <div class="mode-desc">Progressão por níveis com categorias à escolha</div>
+        </div>
+        <div class="mode-card" data-mode="secret">
+          <div class="mode-icon">🔒</div>
+          <div class="mode-name">Secret</div>
+          <div class="mode-desc">Cada pessoa vê só o seu desafio antes de passar o celular</div>
+        </div>
+        <div class="mode-card" data-mode="focado">
+          <div class="mode-icon">◎</div>
+          <div class="mode-name">Focado</div>
+          <div class="mode-desc">Uma única categoria, intensidade total</div>
+        </div>
+        <div class="mode-card" data-mode="submissa">
+          <div class="mode-icon">△</div>
+          <div class="mode-name">Submissa</div>
+          <div class="mode-desc">Ele escolhe entre 3 opções, infinitamente</div>
+        </div>
+        <div class="mode-card" data-mode="dominadora">
+          <div class="mode-icon">▲</div>
+          <div class="mode-name">Dominadora</div>
+          <div class="mode-desc">Ela escolhe entre 3 opções, infinitamente</div>
+        </div>
+        <div class="mode-card" data-mode="dados">
+          <div class="mode-icon">⚄</div>
+          <div class="mode-name">Dados</div>
+          <div class="mode-desc">Dois dados sorteiam uma ação e um lugar, alternando entre os jogadores</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TELA 3: CONFIGURAÇÃO (varia por modo) ═════════════════════ -->
+  <div id="s-config" class="screen">
+
+    <!-- Nomes (sempre) -->
+    <div class="card" id="cfg-nomes">
+      <div class="stitle" id="cfg-titulo">Configuração</div>
+      <div class="field"><label for="nomeH">Nome do homem</label><input id="nomeH" type="text" placeholder="Homem"/></div>
+      <div class="field"><label for="nomeM">Nome da mulher</label><input id="nomeM" type="text" placeholder="Mulher"/></div>
+      <!-- desafios por nível: só clássico/secret -->
+      <div id="cfg-nivel" class="field" style="display:none">
+        <label for="desafiosPorNivel">Desafios por nível</label>
+        <input id="desafiosPorNivel" type="number" min="1" max="20" value="4"/>
+      </div>
+    </div>
+
+    <!-- Categorias múltiplas: clássico / secret / submissa / dominadora -->
+    <div class="card" id="cfg-cats" style="display:none">
+      <div class="stitle">Categorias</div>
+      <div class="chips" id="categoriasContainer"></div>
+    </div>
+
+    <!-- Categoria única: focado -->
+    <div class="card" id="cfg-single" style="display:none">
+      <div class="stitle">Categoria</div>
+      <div class="single-cat-list" id="singleCatContainer"></div>
+    </div>
+
+    <!-- Dados: sem config extra, só nomes -->
+
+    <button id="iniciarBtn" class="btn">Iniciar ✦</button>
+    <button class="btn-back" id="voltarConfigBtn">← Trocar modo</button>
+  </div>
+
+  <!-- ══ TELA 4A: JOGO (clássico / secret / focado) ════════════════ -->
+  <div id="s-game" class="screen">
+    <div class="game-meta">
+      <div class="meta-cell"><div class="meta-label">Jogador da vez</div><div class="meta-value" id="jogadorAtual">—</div></div>
+      <div class="meta-cell"><div class="meta-label" id="nivelLabel">Nível</div><div class="meta-value" id="nivelAtual">—</div></div>
+    </div>
+    <div class="challenge-wrap" id="desafioWrap">
+      <div class="challenge-glyph" id="challengeGlyph"></div>
+      <div class="challenge-text" id="desafio">…</div>
+    </div>
+    <div class="progress-wrap" id="progressWrap" style="display:none">
+      <div class="progress-labels"><span>Progresso no nível</span><span id="progressLabel">0 / 0</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+    <div class="timer-card" id="timerCard" style="display:none">
+      <div class="timer-body">
+        <div class="timer-arc-wrap">
+          <svg viewBox="0 0 110 110"><circle class="timer-track" cx="55" cy="55" r="48"/><circle class="timer-arc" id="timerArc" cx="55" cy="55" r="48"/></svg>
+          <div class="timer-center"><div class="timer-digits" id="timerDigits">--</div><div class="timer-lbl">segundos</div></div>
+        </div>
+        <button class="timer-start" id="timerBtn">▶ Iniciar timer</button>
+        <div class="timer-done" id="timerDone">⏰ Tempo esgotado!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TELA 4B: CHOICE (submissa / dominadora) ═══════════════════ -->
+  <div id="s-choice" class="screen">
+    <div class="card">
+      <div class="stitle" id="choiceTitle">Escolha um desafio</div>
+      <div class="choice-list" id="choiceList"></div>
+    </div>
+    <div class="challenge-wrap" id="choiceWrap" style="display:none;margin-bottom:14px">
+      <div class="challenge-glyph" id="choiceGlyph"></div>
+      <div class="challenge-text" id="choiceText">…</div>
+    </div>
+    <div class="timer-card" id="choiceTimerCard" style="display:none">
+      <div class="timer-body">
+        <div class="timer-arc-wrap">
+          <svg viewBox="0 0 110 110"><circle class="timer-track" cx="55" cy="55" r="48"/><circle class="timer-arc" id="choiceTimerArc" cx="55" cy="55" r="48"/></svg>
+          <div class="timer-center"><div class="timer-digits" id="choiceTimerDigits">--</div><div class="timer-lbl">segundos</div></div>
+        </div>
+        <button class="timer-start" id="choiceTimerBtn">▶ Iniciar timer</button>
+        <div class="timer-done" id="choiceTimerDone">⏰ Tempo esgotado!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TELA 4C: DADOS ════════════════════════════════════════════ -->
+  <div id="s-dados" class="screen">
+    <div class="dice-wrap">
+      <!-- Quem é a vez -->
+      <div>
+        <div class="dice-player">Vez de</div>
+        <div class="dice-player-name" id="dicePlayerName">—</div>
+      </div>
+      <!-- Dado único: Ação -->
+      <div class="dice-pair">
+        <div class="die-slot">
+          <div class="die" id="die1">Toque para rolar</div>
+          <div class="die-label">Ação</div>
+        </div>
+        <div class="die-slot">
+          <div class="die" id="die2">Toque para rolar</div>
+          <div class="die-label">Lugar</div>
+        </div>
+      </div>
+      <!-- Frase montada -->
+      <div class="dice-result" id="diceResult"></div>
+      <div class="dice-hint">Toque em cada dado ou role os dois juntos</div>
+      <button class="dice-btn" id="diceRollBtn">⚄ Rolar e passar a vez</button>
+    </div>
+  </div>
+
+  <!-- ══ FIM DE JOGO ═══════════════════════════════════════════════ -->
+  <div id="s-fim" class="screen">
+    <div class="fim-wrap">
+      <div class="fim-icon">✦</div>
+      <div class="fim-title">Uma <em>noite</em> inesquecível</div>
+      <div class="fim-sub">Vocês completaram todos os níveis.<br>Esperamos que tenham se divertido muito.</div>
+      <button id="reiniciarBtn" class="btn" style="max-width:260px">Jogar novamente</button>
+    </div>
+  </div>
+
+</div><!-- /wrapper -->
+
+<!-- Overlay: Secret -->
+<div id="secretScreen">
+  <div class="secret-hint">Vez de</div>
+  <div class="secret-name" id="secretName">—</div>
+  <button class="secret-btn" id="secretRevealBtn">Revelar meu desafio</button>
+</div>
+
+<!-- Botão fixo -->
+<button id="proximoBtn" class="hidden">Iniciar Jogo ✦</button>
+
+<!-- Transition -->
+<div id="transition"></div>
+
+<script>
+(()=>{
+// ════════════════════════════════════════════
+// CSV
+// ════════════════════════════════════════════
+const CSV=`nivel|categoria|descricao|jogador|tempo
+4|anal|{HOMEM} acarecia as pregas do ânus da {MULHER}|homem|0
+5|anal|{HOMEM} lubrifica e massageia o ânus da {MULHER} com ela de quatro|homem|0
+3|anal|{MULHER} fique de quatro e empurre o rosto de {HOMEM} contra seu ânus|mulher|0
+3|anal|{HOMEM} dedo no ânus da {MULHER} com lubrificante|homem|0
+3|anal|{HOMEM} coloque a língua no ânus da {MULHER}|homem|0
+4|anal|{HOMEM} coloque a língua no ânus da {MULHER} com ela de quatro|homem|0
+6|anal|{HOMEM} coloque a cabeça do pênis no ânus de {MULHER}|homem|0
+9|anal|{HOMEM} coloque o pênis inteiro no ânus de {MULHER} e deixe ela fazer os movimentos|homem|0
+1|banho|Lave o corpo de {HOMEM} usando os seios|mulher|0
+1|banho|Aponte para {HOMEM} quais partes do seu corpo ele deve lavar|mulher|0
+1|banho|Massegeie todo o corpo de {MULHER} com sabão|mulher|0
+1|banho|Massegeie todo o corpo de {HOMEM} com sabão|homem|0
+3|banho|Depile {MULHER}|homem|0
+6|banho|Escolha um lugar para {HOMEM} te lamber|mulher|0
+7|banho|Puxe o cabelo de {MULHER} enquanto a masturba|homem|0
+6|banho|Faça sexo oral em {HOMEM}|mulher|0
+6|banho|Faça sexo oral em {MULHER}|homem|0
+1|carro|Acarecie o pênis de {HOMEM}|mulher|0
+3|carro|Tire a calcinha e provoque {HOMEM} enquanto ele dirige|mulher|0
+2|carro|Acaricie os peitos de {MULHER}|homem|0
+1|carro|Acarecie a virilha de {MULHER}|homem|0
+4|carro|Se masturbe levemente e depois passe o dedo na boca de {HOMEM}|mulher|0
+5|carro|Tire a calcinha da {MULHER}|homem|0
+5|carro|Coloque a mão de {HOMEM} em você enquanto ele dirige|mulher|0
+7|carro|Faça sexo oral enquanto {HOMEM} dirige|mulher|0
+8|carro|Pare o carro em algum lugar fique de quatro no banco de trás|mulher|0
+9|carro|Pare o carro em algum lugar e cavalgue sobre {HOMEM}|mulher|0
+1|desafio|{MULHER} faz um striptease para {HOMEM}|mulher|0
+1|desafio|Lamba os mamilos de {MULHER}|homem|0
+2|desafio|Beije a perna de {MULHER} ao longo de todo o seu comprimento|homem|0
+3|desafio|Acaricie a parte interna das coxas de {MULHER}|homem|0
+3|desafio|Faça uma massagem sensual na {MULHER} por 3 minutos|homem|180
+2|desafio|Acarecie a parte íntima de {MULHER} sem tirar a roupa íntima|homem|0
+4|desafio|Morda e beije a parte interna das coxas de {MULHER}|homem|0
+3|desafio|Morda o lábio inferior de {MULHER}|homem|0
+2|desafio|Faça uma lap-dance para {HOMEM}|mulher|0
+4|desafio|Use um plug anal e mantenha-o durante todo sexo|mulher|0
+4|desafio|Fique de quatro para {HOMEM} usando uma calça justa e mande-o fazer o que você quiser|mulher|0
+5|desafio|Fique de quatro para {HOMEM} usando um bikini e mande-o tirar usando a boca|mulher|0
+3|desafio|Lubrifique o ânus de {MULHER} com os dedos e saliva|homem|0
+2|desafio|Lamba uma fileira de açúcar entre os seios de {MULHER}|homem|0
+2|desafio|Remova as últimas peças de roupas de {MULHER} com a boca|homem|0
+3|desafio|Sirva um shot entre os seios de {MULHER} e beba sem mãos|homem|0
+4|desafio|Beije do umbigo de {MULHER} até o clitóris dela|homem|0
+2|desafio|Desenhe uma setinha aonde você quer ser beijada e mande {HOMEM} encontrar|mulher|0
+3|desafio|Escolha aonde e com quantos dedos quer ser penetrada|mulher|0
+6|desafio|Mande {HOMEM} fazer o que você quiser em você, ele não pode negar|mulher|0
+3|desafio|Esfregue seu sexo contra o sexo de {HOMEM}|mulher|0
+5|desafio|Vende os olhos de {MULHER} e acaricie cada área solicitada do corpo com as pontas dos dedos|homem|0
+6|desafio|Esfregue seu pênis entre a bunda de {MULHER}|homem|0
+4|desafio|Cubra o sexo de {MULHER} com geléia e divirta-se|homem|0
+5|desafio|Dê palmadas em {MULHER} até sua pele ficar vermelha|homem|0
+5|desafio|Ganha um "Vale chupada" para usar em 24 horas|homem|0
+6|desafio|{HOMEM} escolhe um vale para {MULHER} usar em até 24 horas|homem|0
+6|desafio|{MULHER} escolhe um vale para {HOMEM} usar em até 24 horas|mulher|0
+3|desafio|{MULHER} adiciona o desafio que quiser ao jogo|homem|0
+3|desafio|Chupe {MULHER} enquanto ela fala com alguém no telefone|homem|0
+4|desafio|Lamba a base do pênis de {HOMEM} por 2 minutos|mulher|120
+4|desafio|De quatro masturbe e dê palmadas em {MULHER} por 2 minutos|homem|120
+4|desafio|Ganha um "Vale boquete" para usar em 24 horas|mulher|0
+6|desafio|Faça um boquete em {HOMEM} até o orgasmo|mulher|0
+7|desafio|Faça uma espanhola para {HOMEM} até ele gozar|mulher|0
+5|desafio|Por 4 minutos, seja a empregada submissa do seu parceiro|mulher|240
+5|desafio|Faça um 69|mulher|0
+8|desafio|Limpe cuidadosamente {HOMEM} com sua língua, depois do orgasmo|mulher|0
+5|desafio|Masturbe-se entre as nádegas de {MULHER} até gozar|homem|0
+8|desafio|Faça uma dupla penetração em {MULHER} usando um vibrador ou brinquedo|homem|0
+7|desafio|Masturbe {MULHER} com uma mão e você mesmo com a outra|homem|0
+9|desafio|Limpe cuidadosamente {MULHER} com sua língua, depois do orgasmo|homem|0
+2|oral|Aponte 2 lugares em que quer ser beijada por {HOMEM}|mulher|0
+3|oral|Deixe o pênis de {HOMEM} molhado com a língua|mulher|0
+2|oral|Passe a língua no clitóris de {MULHER}|homem|0
+2|oral|Passe o pênis de {HOMEM} pelo seu rosto|mulher|0
+2|oral|{MULHER} oferece banquete, deita de lado e abre a bunda|mulher|0
+3|oral|Chupe os lábios externos de {MULHER}|homem|0
+3|oral|Faça sexo oral em {MULHER} deitada na mesa da cozinha|homem|0
+3|oral|Faça sexo oral em {HOMEM} deitada e com os braços para trás|mulher|0
+3|oral|Faça um boquete guloso em {HOMEM}|mulher|0
+4|oral|Passe a língua no ânus de {MULHER}|homem|0
+3|oral|Faça sexo oral em {MULHER}|homem|0
+3|oral|Faça sexo oral em {MULHER} enquanto massageia seus seios|homem|0
+4|oral|Faça sexo oral em {MULHER} enquanto deitada e segurando os joelhos|homem|0
+3|oral|Sugue o pênis de {HOMEM} com ele com as mãos presas|mulher|0
+4|oral|Agache no rosto de {HOMEM} e diga como e aonde quer ser chupada|mulher|0
+6|pesado|Faça uma garganta profunda em {HOMEM}|mulher|0
+8|pesado|Penetre {MULHER} enquanto massageia seu ânus|homem|0
+9|pesado|Penetração anal em {MULHER} de quatro enquanto a masturba e aperta seus seios|homem|0
+1|preliminares|Faça um strip-tease na frente de {HOMEM}|mulher|0
+1|preliminares|Beijar o corpo de {HOMEM}|mulher|0
+1|preliminares|Dar palmadas na bunda de {MULHER}|homem|0
+1|preliminares|Beijar o corpo de {MULHER}|homem|0
+1|preliminares|Morder a bunda de {MULHER}|homem|0
+1|preliminares|Acaricie o busto de {MULHER}|homem|0
+2|preliminares|Lamba a bunda de {MULHER}|homem|0
+2|preliminares|Beije as costas de {MULHER} até as nádegas|homem|0
+1|preliminares|Beije {MULHER} dos pés até a boca|homem|0
+1|preliminares|Passe óleo ou hidratante no corpo de {MULHER}|homem|0
+1|preliminares|Beijar {MULHER} no pescoço|homem|0
+1|preliminares|Lamba {MULHER} no pescoço o quanto quiser|homem|0
+1|preliminares|Beijar {MULHER} devagar|homem|0
+1|preliminares|Massagem em {MULHER}|homem|0
+1|preliminares|Morder a orelha de {MULHER}|homem|0
+1|preliminares|Acaricie o seu corpo com as mãos de {MULHER}|homem|0
+1|preliminares|Usando roupa de academia mande {HOMEM} cheirar seu corpo todo|mulher|0
+2|preliminares|Provoque {HOMEM} abrindo e mostrando suas nádegas|mulher|0
+2|preliminares|Acarecie levemente as bolas de {HOMEM}|mulher|0
+2|preliminares|Passe a bunda no rosto de {HOMEM}|mulher|0
+2|preliminares|Masturbe {HOMEM} com as suas mãos|mulher|0
+2|preliminares|Acaricie o pênis de {HOMEM} com os seus pés|mulher|0
+2|preliminares|Massageie o pênis de {HOMEM} sensualmente|mulher|0
+2|preliminares|Passe a língua nas zonas erógenas de {HOMEM}|mulher|0
+2|preliminares|Passe os peitos no rosto de {HOMEM}|mulher|0
+2|preliminares|Chupe os seios de {MULHER}|homem|0
+2|preliminares|Morda levemente os mamilos de {MULHER}|homem|0
+2|preliminares|Beije a virilha de {MULHER}|homem|0
+2|preliminares|Passe o pênis no rosto de {MULHER}|homem|0
+2|preliminares|Beije todas as partes do corpo de {MULHER}|homem|0
+2|preliminares|Masturbe {MULHER} de quatro|homem|0
+2|preliminares|Massageie {MULHER} deitada de frente|homem|0
+2|preliminares|Massageie {MULHER} deitada de bruço|homem|0
+4|preliminares|Com a língua percorra todo o corpo de {MULHER}|homem|0
+2|preliminares|De conchinha passe o pênis pelo ânus de {MULHER} enquanto a beija|homem|0
+2|preliminares|Gentilmente, acaricie o clitóris de {MULHER}|homem|0
+2|preliminares|Penetre {MULHER} com o dedo|homem|0
+2|preliminares|Lamba os seios de {MULHER}|homem|0
+2|preliminares|Massageie os seios de {MULHER}|homem|0
+2|preliminares|Conte para {HOMEM} sua fantasia mais safada|mulher|0
+5|preliminares|Usando calça de academia fique de quatro e mande {HOMEM} tirar sua roupa|mulher|0
+7|preliminares|{HOMEM} te chupa por trás com você apoiada em uma janela|mulher|0
+3|preliminares|Morda e torça os mamilos de {MULHER}|homem|0
+2|preliminares|Deite segurando os joelhos e sem abrir as pernas deixe {HOMEM} brincar com você|homem|0
+3|preliminares|Passe lubrificante no pênis de {HOMEM}|mulher|0
+4|preliminares|Lamba a região entre o ânus e a vagina de {MULHER}|homem|0
+3|preliminares|Acaricie o pênis de {HOMEM}|mulher|0
+3|preliminares|Masturbe lentamente {HOMEM} com os peitos|mulher|0
+3|preliminares|Faça sexo oral em {MULHER} lentamente|homem|0
+7|submissão|Fica um dia de vestido e sem calcinha|mulher|0
+6|submissão|Escolha um lugar para {HOMEM} lamber|mulher|0
+5|submissão|Deite de bruço, escolha um lugar para {HOMEM} começar a beijar e depois guie-o até aonde quiser|homem|0
+7|submissão|Escolha uma safadeza para {HOMEM} em um local diferente da casa|mulher|0
+5|submissão|Mande {HOMEM} lamber seu ânus na posição que você escolher|mulher|0
+4|submissão|{MULHER} recebe sexo oral sentada em seu rosto e sem você usar as mãos|homem|0
+6|submissão|{HOMEM} tem que obedecer {MULHER} por 2 minutos|homem|120
+3|submissão|De quatro mande {HOMEM} bater em você com o pênis|mulher|0
+5|submissão|Ofereça uma parte do seu corpo como recompensa por {HOMEM} te tratar bem|mulher|0
+6|submissão|Passe mel em uma parte do seu corpo e mande {HOMEM} descobrir aonde foi usando apenas a boca|mulher|0
+8|submissão|{HOMEM} é o escravo sexual de {MULHER} para ela fazer o que quiser|mulher|0
+6|submissão|Deite no colo de {HOMEM} com a bunda para cima e dê instruções detalhadas do que ele deve fazer|mulher|0
+8|submissão|Faça garganta profunda em {HOMEM}|mulher|0
+4|submissão|Sexo oral em {HOMEM}, de joelho, braços para trás e boca aberta|mulher|0
+5|submissão|Sente na beira de um banco ou balcão com a bunda para fora e mande {HOMEM} te chupar|mulher|0
+4|submissão|Amarre {HOMEM} e faça um boquete nele|mulher|0
+4|submissão|Topa fazer "free use" por um dia inteiro?|mulher|0
+4|submissão|Amarre {MULHER} e estimule seu ânus|homem|0
+5|submissão|Amarre {MULHER} e faça o que quiser|homem|0
+4|submissão|Amarre {MULHER} e faça sexo oral nela|homem|0
+6|submissão|Topa fazer "free use" por um dia inteiro?|homem|0
+9|submissão|Faça garganta profunda invertida em {HOMEM}|mulher|0
+8|submissão|Goze no rosto de {MULHER}|homem|0
+8|submissão|Goze nos peitos de {MULHER}|homem|0
+8|submissão|Goze no ânus de {MULHER}|homem|0
+7|submissão|Amarre {MULHER} e faça sexo anal nela|homem|0`;
+
+// ════════════════════════════════════════════
+// DICE WORDS — separados por jogador
+// ════════════════════════════════════════════
+// Ações que o HOMEM faz (na mulher)
+const ACOES_H=[
+  'Lamber','Beijar','Morder','Masturbar','Acariciar',
+  'Apertar','Chupar','Esfregar o pênis em',
+  'Dar palmadas em','Cobrir de beijos',
+  'Passar a língua em','Penetrar com o dedo',
+  'Massagear','Beliscar','Soprar'
+];
+// Lugares do corpo da MULHER (homem age sobre ela)
+const LUGARES_H=[
+  'a bunda','os seios','o pescoço','a virilha','os mamilos',
+  'a barriga','os lábios','a orelha','as costas','o ânus',
+  'as coxas','o clitóris','os pés','o umbigo','a nuca'
+];
+// Ações que a MULHER faz (no homem)
+const ACOES_M=[
+  'Lamber','Beijar','Morder','Masturbar','Acariciar',
+  'Chupar','Esfregar os seios em','Passar a língua em',
+  'Cobrir de beijos','Massagear',
+  'Beliscar','Apertar','Deslizar os dedos em',
+  'Passar os pés em','Soprar'
+];
+// Lugares do corpo do HOMEM (mulher age sobre ele)
+const LUGARES_M=[
+  'o pênis','as bolas','o pescoço','a virilha','os mamilos',
+  'a barriga','os lábios','a orelha','as costas','o ânus',
+  'as coxas','a nuca','o umbigo','os pés','a boca'
+];
+
+// ════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════
+const HOMEM='homem', MULHER='mulher', NIVEL_MAX=10;
+let desafiosPorNivelMap={}, todosDesafios=[], categorias=[];
+let categoriasAtivas=new Set();
+let desafiosPorNivel=4, nomeH='Homem', nomeM='Mulher';
+let nivelAtual=1, feitosNoNivel=0, sorteadosNoNivel=new Set();
+let jogadorDaVez=HOMEM, jogoIniciado=false;
+let modoAtual='classico', focadoCategoria=null;
+let secretPendingCb=null;
+
+// ════════════════════════════════════════════
+// DOM
+// ════════════════════════════════════════════
+const G=id=>document.getElementById(id);
+const screens=['s-login','s-mode','s-config','s-game','s-choice','s-dados','s-fim'];
+
+function showScreen(id){
+  screens.forEach(s=>G(s).classList.remove('active'));
+  G(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ════════════════════════════════════════════
+// AUDIO
+// ════════════════════════════════════════════
+let audioCtx=null;
+function getCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
+function tocarSino(){
+  try{const c=getCtx();
+    [[523.25,.35],[1046.5,.20],[784,.18],[1318.5,.10]].forEach(([f,v])=>{
+      const o=c.createOscillator(),g=c.createGain();
+      o.type='sine';o.frequency.setValueAtTime(f,c.currentTime);
+      g.gain.setValueAtTime(v,c.currentTime);g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+2.8);
+      o.connect(g);g.connect(c.destination);o.start(c.currentTime);o.stop(c.currentTime+2.8);
+    });
+  }catch(e){}
+}
+
+// ════════════════════════════════════════════
+// TIMER FACTORY
+// ════════════════════════════════════════════
+const ARC=2*Math.PI*48;
+function makeTimer(arcEl,digEl,doneEl,btnEl,cardEl){
+  let iv=null,tot=0,left=0;
+  const fmt=s=>s>=60?`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`:String(s);
+  const arc=(r,t)=>{arcEl.style.strokeDasharray=ARC;arcEl.style.strokeDashoffset=ARC*(1-(t>0?r/t:1));};
+  const stop=()=>{if(iv){clearInterval(iv);iv=null;}};
+  const hide=()=>{stop();cardEl.style.display='none';};
+  const show=s=>{
+    tot=s;left=s;digEl.textContent=fmt(s);
+    digEl.classList.remove('warn');arcEl.classList.remove('warn');
+    doneEl.style.display='none';btnEl.style.display='inline-block';
+    arc(s,tot);cardEl.style.display='block';
+  };
+  btnEl.addEventListener('click',()=>{
+    getCtx();btnEl.style.display='none';stop();
+    iv=setInterval(()=>{
+      left--;digEl.textContent=fmt(left);arc(left,tot);
+      const w=left<=Math.min(10,Math.floor(tot*.2));
+      digEl.classList.toggle('warn',w);arcEl.classList.toggle('warn',w);
+      if(left<=0){stop();digEl.textContent='0';arc(0,tot);doneEl.style.display='block';
+        tocarSino();if(navigator.vibrate)navigator.vibrate([200,100,200]);}
+    },1000);
+  });
+  return{show,hide,stop};
+}
+const T1=makeTimer(G('timerArc'),G('timerDigits'),G('timerDone'),G('timerBtn'),G('timerCard'));
+const T2=makeTimer(G('choiceTimerArc'),G('choiceTimerDigits'),G('choiceTimerDone'),G('choiceTimerBtn'),G('choiceTimerCard'));
+
+// ════════════════════════════════════════════
+// WORD REVEAL
+// ════════════════════════════════════════════
+function reveal(txt,el){
+  el.innerHTML='';
+  txt.split(' ').forEach((word,i)=>{
+    const s=document.createElement('span');
+    s.className='w';s.textContent=word;s.style.animationDelay=`${i*80}ms`;
+    el.appendChild(s);el.appendChild(document.createTextNode(' '));
+  });
+}
+
+// ════════════════════════════════════════════
+// CSV PARSING
+// ════════════════════════════════════════════
+const CAT_EMOJI={anal:'◆',banho:'◇',carro:'◈',desafio:'✦',oral:'◉',pesado:'▲',preliminares:'◌',submissão:'△'};
+function parseCSV(txt){
+  const lines=txt.trim().split('\n'),map={},all=[];
+  for(let i=1;i<lines.length;i++){
+    const p=lines[i].split('|');if(p.length<5)continue;
+    const obj={nivel:parseInt(p[0],10),categoria:p[1].trim(),descricao:p[2].trim(),
+               jogador:p[3].trim().toLowerCase(),tempo:parseInt(p[4],10)||0};
+    if(!map[obj.nivel])map[obj.nivel]=[];
+    map[obj.nivel].push(obj);all.push(obj);
+  }
+  return{map,all};
+}
+function fmtDesc(d){return d.replace(/\{HOMEM\}/g,nomeH).replace(/\{MULHER\}/g,nomeM).replace(/\{HOMEN\}/g,nomeH).replace(/\{jogador2\}/g,nomeM);}
+
+// ════════════════════════════════════════════
+// CATEGORIES UI
+// ════════════════════════════════════════════
+function buildCatChips(){
+  const c=G('categoriasContainer');c.innerHTML='';
+  categorias.forEach(cat=>{
+    const el=document.createElement('div');el.className='chip active';
+    el.innerHTML=`<input type="checkbox" value="${cat}" checked/><span class="chip-dot"></span><span>${CAT_EMOJI[cat]||'·'} ${cat}</span>`;
+    el.addEventListener('click',()=>{const cb=el.querySelector('input');cb.checked=!cb.checked;el.classList.toggle('active',cb.checked);syncCats();});
+    c.appendChild(el);
+  });
+  categoriasAtivas=new Set(categorias);
+}
+function syncCats(){categoriasAtivas=new Set(Array.from(G('categoriasContainer').querySelectorAll('input:checked')).map(x=>x.value));}
+
+function buildSingleCat(){
+  const c=G('singleCatContainer');c.innerHTML='';
+  if(!focadoCategoria)focadoCategoria=categorias[0]||null;
+  categorias.forEach(cat=>{
+    const el=document.createElement('div');
+    el.className='single-cat-opt'+(cat===focadoCategoria?' selected':'');
+    el.innerHTML=`<span class="chip-dot"></span><span>${CAT_EMOJI[cat]||'·'} ${cat}</span>`;
+    el.addEventListener('click',()=>{
+      focadoCategoria=cat;
+      c.querySelectorAll('.single-cat-opt').forEach(e=>e.classList.remove('selected'));
+      el.classList.add('selected');
+    });
+    c.appendChild(el);
+  });
+}
+
+// ════════════════════════════════════════════
+// SCREEN NAVIGATION
+// ════════════════════════════════════════════
+
+// ── LOGIN → MODE ──────────────────────────────────────────────
+G('entrarBtn').addEventListener('click',()=>{
+  const u=(G('usuario').value||'').trim(),s=(G('senha').value||'').trim();
+  if(u==='admin'&&s==='admin'){
+    G('loginMsg').textContent='';
+    showScreen('s-mode');
+  }else{
+    G('loginMsg').textContent='Credenciais inválidas.';
+    G('senha').value='';G('senha').focus();
+  }
+});
+[G('usuario'),G('senha')].forEach(el=>el.addEventListener('keydown',e=>{if(e.key==='Enter')G('entrarBtn').click();}));
+
+// ── MODE → CONFIG ─────────────────────────────────────────────
+G('modeGrid').querySelectorAll('.mode-card').forEach(card=>{
+  card.addEventListener('click',()=>{
+    modoAtual=card.dataset.mode;
+    configureScreenForMode();
+    showScreen('s-config');
+  });
+});
+
+function configureScreenForMode(){
+  const m=modoAtual;
+  // título
+  const titulos={classico:'Configuração',secret:'Configuração · Secret',
+    focado:'Configuração · Focado',submissa:'Configuração · Submissa',
+    dominadora:'Configuração · Dominadora',dados:'Configuração · Dados'};
+  G('cfg-titulo').textContent=titulos[m]||'Configuração';
+  // desafios por nível
+  G('cfg-nivel').style.display=(m==='classico'||m==='secret')?'block':'none';
+  // categorias múltiplas
+  const hasCats=['classico','secret','focado','submissa','dominadora'].includes(m);
+  G('cfg-cats').style.display=hasCats&&m!=='focado'?'block':'none';
+  // categoria única
+  G('cfg-single').style.display=m==='focado'?'block':'none';
+  if(m==='focado')buildSingleCat();
+  // rebuild chips sempre que abrir config (garante estado limpo)
+  if(hasCats&&m!=='focado')buildCatChips();
+}
+
+G('voltarConfigBtn').addEventListener('click',()=>showScreen('s-mode'));
+
+// ── CONFIG → JOGO ─────────────────────────────────────────────
+G('iniciarBtn').addEventListener('click',iniciarJogo);
+
+// ════════════════════════════════════════════
+// GAME LOGIC
+// ════════════════════════════════════════════
+function candidatos(jog){
+  return(desafiosPorNivelMap[nivelAtual]||[]).filter(d=>
+    d.jogador===jog&&categoriasAtivas.has(d.categoria)&&!sorteadosNoNivel.has(d.descricao+'|'+d.jogador));
+}
+function esgotouNivel(){return candidatos(HOMEM).length===0&&candidatos(MULHER).length===0;}
+function nextNivel(){nivelAtual++;feitosNoNivel=0;sorteadosNoNivel.clear();}
+function sortear(){
+  if(!categoriasAtivas.size)return null;
+  const a=candidatos(jogadorDaVez);if(a.length)return a[Math.floor(Math.random()*a.length)];
+  const outro=jogadorDaVez===HOMEM?MULHER:HOMEM,b=candidatos(outro);
+  if(b.length){jogadorDaVez=outro;return b[Math.floor(Math.random()*b.length)];}
+  return null;
+}
+function buscarDesafio(){
+  let s=0;
+  while(nivelAtual<=NIVEL_MAX){
+    if(esgotouNivel()||feitosNoNivel>=desafiosPorNivel){nextNivel();if(++s>NIVEL_MAX)break;continue;}
+    const d=sortear();if(d)return d;
+    nextNivel();if(++s>NIVEL_MAX)break;
+  }
+  return null;
+}
+
+function atualizarMeta(){
+  G('jogadorAtual').textContent=jogadorDaVez===HOMEM?nomeH:nomeM;
+  G('nivelAtual').textContent=nivelAtual;
+  const pct=Math.min(100,Math.round((feitosNoNivel/desafiosPorNivel)*100));
+  G('progressLabel').textContent=`${feitosNoNivel} / ${desafiosPorNivel}`;
+  G('progressFill').style.width=pct+'%';
+}
+function exibirDesafio(d){
+  reveal(fmtDesc(d.descricao),G('desafio'));
+  G('challengeGlyph').textContent=CAT_EMOJI[d.categoria]||'';
+  d.tempo>0?T1.show(d.tempo):T1.hide();
+  const w=G('desafioWrap');void w.offsetWidth;w.classList.add('visible');
+  G('jogadorAtual').classList.add('pulse');
+  setTimeout(()=>G('jogadorAtual').classList.remove('pulse'),600);
+}
+
+const transEl=G('transition');
+function suspense(cb){
+  G('proximoBtn').disabled=true;G('proximoBtn').textContent='✦';
+  G('desafioWrap').classList.remove('visible');
+  transEl.style.animation='none';void transEl.offsetWidth;
+  transEl.style.display='block';transEl.style.animation='curtain 2.8s ease forwards';
+  setTimeout(()=>{
+    transEl.style.display='none';cb();
+    G('proximoBtn').disabled=false;G('proximoBtn').textContent='Próximo desafio ✦';
+  },2400);
+}
+
+// ── SECRET ────────────────────────────────────────────────────
+function mostrarSecret(jog,cb){
+  G('secretName').innerHTML=`<em>${jog===HOMEM?nomeH:nomeM}</em>`;
+  secretPendingCb=cb;G('secretScreen').style.display='flex';
+}
+G('secretRevealBtn').addEventListener('click',()=>{
+  G('secretScreen').style.display='none';
+  if(secretPendingCb){secretPendingCb();secretPendingCb=null;}
+});
+
+// ── CHOICE ────────────────────────────────────────────────────
+function poolChoice(){
+  const jog=modoAtual==='submissa'?HOMEM:MULHER;
+  return todosDesafios.filter(d=>d.jogador===jog&&categoriasAtivas.has(d.categoria));
+}
+function renderChoice(){
+  const pool=poolChoice(),opcoes=[],copia=[...pool];
+  for(let i=0;i<3&&copia.length;i++){const idx=Math.floor(Math.random()*copia.length);opcoes.push(copia.splice(idx,1)[0]);}
+  const quem=modoAtual==='submissa'?nomeH:nomeM;
+  G('choiceTitle').textContent=`${quem}, escolha um desafio`;
+  G('choiceList').innerHTML='';
+  G('choiceWrap').style.display='none';G('choiceWrap').style.opacity='0';
+  T2.hide();
+  opcoes.forEach(d=>{
+    const el=document.createElement('div');el.className='choice-item';
+    el.innerHTML=`<div class="choice-cat">${CAT_EMOJI[d.categoria]||''} ${d.categoria}</div>${fmtDesc(d.descricao)}`;
+    el.addEventListener('click',()=>{
+      reveal(fmtDesc(d.descricao),G('choiceText'));
+      G('choiceGlyph').textContent=CAT_EMOJI[d.categoria]||'';
+      const w=G('choiceWrap');w.style.display='flex';setTimeout(()=>w.style.opacity='1',20);
+      d.tempo>0?T2.show(d.tempo):T2.hide();
+      G('choiceList').innerHTML='';G('choiceTitle').textContent='Desafio escolhido';
+      G('proximoBtn').textContent='Próximas opções ✦';
+    });
+    G('choiceList').appendChild(el);
+  });
+  G('proximoBtn').textContent='Novas opções ↻';
+  G('proximoBtn').disabled=false;
+}
+
+// ── DICE ──────────────────────────────────────────────────────
+let diceJogador=HOMEM;
+let diceAcaoAtual='', diceLugarAtual='';
+
+function diceListasAtual(){
+  return diceJogador===HOMEM
+    ? {acoes:ACOES_H, lugares:LUGARES_H}
+    : {acoes:ACOES_M, lugares:LUGARES_M};
+}
+function diceAtualizarJogador(){
+  G('dicePlayerName').textContent=diceJogador===HOMEM?nomeH:nomeM;
+  // resetar dados visualmente ao trocar jogador
+  diceAcaoAtual=''; diceLugarAtual='';
+  G('die1').textContent='Toque para rolar';
+  G('die2').textContent='Toque para rolar';
+  G('diceResult').classList.remove('visible');
+}
+function diceAtualizarResultado(){
+  if(!diceAcaoAtual||!diceLugarAtual){G('diceResult').classList.remove('visible');return;}
+  const executor=diceJogador===HOMEM?nomeH:nomeM;
+  const alvo=diceJogador===HOMEM?nomeM:nomeH;
+  G('diceResult').innerHTML=`<strong>${executor}</strong>: ${diceAcaoAtual} <strong>${diceLugarAtual}</strong> de <strong>${alvo}</strong>`;
+  G('diceResult').classList.add('visible');
+}
+
+function rolarDado(el,lista,onDone){
+  el.classList.remove('rolling');void el.offsetWidth;el.classList.add('rolling');
+  el.textContent='…';
+  setTimeout(()=>{
+    const val=lista[Math.floor(Math.random()*lista.length)];
+    el.textContent=val;if(onDone)onDone(val);
+  },280);
+}
+
+G('die1').addEventListener('click',()=>{
+  rolarDado(G('die1'),diceListasAtual().acoes,v=>{diceAcaoAtual=v;diceAtualizarResultado();});
+});
+G('die2').addEventListener('click',()=>{
+  rolarDado(G('die2'),diceListasAtual().lugares,v=>{diceLugarAtual=v;diceAtualizarResultado();});
+});
+G('diceRollBtn').addEventListener('click',()=>{
+  const listas=diceListasAtual();
+  diceAcaoAtual='';diceLugarAtual='';
+  G('diceResult').classList.remove('visible');
+  rolarDado(G('die1'),listas.acoes,v=>{diceAcaoAtual=v;diceAtualizarResultado();});
+  rolarDado(G('die2'),listas.lugares,v=>{diceLugarAtual=v;diceAtualizarResultado();});
+  // passa a vez
+  diceJogador=diceJogador===HOMEM?MULHER:HOMEM;
+  diceAtualizarJogador();
+});
+
+// ════════════════════════════════════════════
+// INICIAR JOGO
+// ════════════════════════════════════════════
+function iniciarJogo(){
+  nomeH=(G('nomeH').value||'').trim()||'Homem';
+  nomeM=(G('nomeM').value||'').trim()||'Mulher';
+  const n=parseInt(G('desafiosPorNivel').value,10);
+  desafiosPorNivel=(!isNaN(n)&&n>0)?n:4;
+  nivelAtual=1;feitosNoNivel=0;sorteadosNoNivel.clear();jogadorDaVez=HOMEM;jogoIniciado=true;
+
+  const btn=G('proximoBtn');
+
+  // ── DADOS ──────────────────────────────────────────────────
+  if(modoAtual==='dados'){
+    showScreen('s-dados');btn.classList.add('hidden');
+    diceJogador=HOMEM;diceAcaoAtual='';diceLugarAtual='';
+    G('die1').textContent='Toque para rolar';G('die2').textContent='Toque para rolar';
+    G('diceResult').classList.remove('visible');
+    diceAtualizarJogador();
+    return;
+  }
+
+  // ── CHOICE ─────────────────────────────────────────────────
+  if(modoAtual==='submissa'||modoAtual==='dominadora'){
+    showScreen('s-choice');
+    btn.classList.remove('hidden');renderChoice();return;
+  }
+
+  // ── FOCADO ─────────────────────────────────────────────────
+  if(modoAtual==='focado'){
+    if(!focadoCategoria){alert('Escolha uma categoria.');return;}
+    categoriasAtivas=new Set([focadoCategoria]);
+  }
+
+  // ── CLÁSSICO / SECRET / FOCADO ─────────────────────────────
+  const isClassico=modoAtual==='classico'||modoAtual==='focado';
+  G('nivelLabel').textContent=isClassico?'Nível':'Desafio';
+  G('progressWrap').style.display=isClassico?'block':'none';
+  G('desafioWrap').classList.remove('visible');
+  T1.hide();
+
+  showScreen('s-game');
+  btn.classList.remove('hidden');btn.textContent='Próximo desafio ✦';
+  atualizarMeta();
+
+  const d=buscarDesafio();if(!d){mostrarFim();return;}
+  sorteadosNoNivel.add(d.descricao+'|'+d.jogador);feitosNoNivel++;atualizarMeta();
+
+  if(modoAtual==='secret'){
+    mostrarSecret(d.jogador,()=>suspense(()=>{exibirDesafio(d);jogadorDaVez=jogadorDaVez===HOMEM?MULHER:HOMEM;atualizarMeta();}));
+  }else{
+    suspense(()=>{exibirDesafio(d);jogadorDaVez=jogadorDaVez===HOMEM?MULHER:HOMEM;atualizarMeta();});
+  }
+}
+
+// ════════════════════════════════════════════
+// AVANÇAR / FIM / REINICIAR
+// ════════════════════════════════════════════
+G('proximoBtn').addEventListener('click',()=>{
+  if(!jogoIniciado)return;
+  if(modoAtual==='submissa'||modoAtual==='dominadora'){T2.hide();renderChoice();return;}
+  T1.stop();
+  const d=buscarDesafio();if(!d){mostrarFim();return;}
+  sorteadosNoNivel.add(d.descricao+'|'+d.jogador);feitosNoNivel++;atualizarMeta();
+  if(modoAtual==='secret'){
+    mostrarSecret(d.jogador,()=>suspense(()=>{exibirDesafio(d);jogadorDaVez=jogadorDaVez===HOMEM?MULHER:HOMEM;atualizarMeta();}));
+  }else{
+    suspense(()=>{exibirDesafio(d);jogadorDaVez=jogadorDaVez===HOMEM?MULHER:HOMEM;atualizarMeta();});
+  }
+});
+
+function mostrarFim(){showScreen('s-fim');G('proximoBtn').classList.add('hidden');}
+
+G('reiniciarBtn').addEventListener('click',()=>{
+  jogoIniciado=false;T1.hide();T2.hide();
+  G('proximoBtn').classList.add('hidden');
+  G('desafioWrap').classList.remove('visible');
+  G('progressFill').style.width='0%';
+  showScreen('s-mode');
+});
+
+// ════════════════════════════════════════════
+// BOOTSTRAP
+// ════════════════════════════════════════════
+const parsed=parseCSV(CSV);
+desafiosPorNivelMap=parsed.map;todosDesafios=parsed.all;
+categorias=[...new Set(todosDesafios.map(d=>d.categoria))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+buildCatChips();
+})();
+</script>
+</body>
+</html>
