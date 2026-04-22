@@ -271,6 +271,87 @@ body::before{
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* ── Presentinho ── */
+.presente-sender{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.presente-player-toggle{display:flex;gap:8px;margin-bottom:4px}
+.presente-player-btn{
+  flex:1;padding:10px;border-radius:10px;border:1px solid var(--border);
+  background:var(--bg2);color:var(--txt2);
+  font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  cursor:pointer;transition:.2s;
+}
+.presente-player-btn.active{background:rgba(124,58,237,.2);border-color:var(--accent2);color:var(--accent)}
+.presente-desafio-list{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto;padding-right:4px}
+.presente-desafio-item{
+  background:var(--bg2);border:1px solid var(--border);border-radius:12px;
+  padding:12px 16px;cursor:pointer;transition:.2s;
+  font-size:1rem;font-style:italic;color:var(--txt);line-height:1.35;
+}
+.presente-desafio-item:hover{border-color:var(--accent2);background:rgba(124,58,237,.12);color:var(--accent)}
+.presente-desafio-item.selected{background:rgba(124,58,237,.22);border-color:var(--accent);color:var(--accent)}
+.presente-desafio-item .pdi-cat{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;color:var(--txt3);margin-bottom:4px}
+.presente-custom-wrap{margin-top:10px}
+.presente-custom-wrap textarea{
+  width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:10px;
+  padding:.7rem 1rem;font-family:'Cormorant Garamond',Georgia,serif;font-size:1.05rem;
+  color:var(--txt);resize:vertical;min-height:80px;transition:.2s;
+}
+.presente-custom-wrap textarea:focus{outline:none;border-color:var(--accent2);box-shadow:0 0 0 3px var(--glow)}
+.presente-custom-wrap textarea::placeholder{color:var(--txt3)}
+.presente-preview-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:18px;
+  padding:28px 24px;text-align:center;display:flex;flex-direction:column;
+  align-items:center;gap:16px;opacity:0;transition:opacity .4s ease;
+}
+.presente-preview-card.visible{opacity:1}
+.presente-preview-icon{font-size:2.4rem;line-height:1}
+.presente-preview-title{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--txt3)}
+.presente-preview-desc{font-size:1.4rem;font-style:italic;line-height:1.5;color:var(--txt)}
+.presente-preview-desc strong{color:var(--accent);font-style:normal}
+.presente-preview-para{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--txt3)}
+.presente-msg-box{
+  background:var(--bg2);border:1px solid var(--border);border-radius:12px;
+  padding:14px 16px;font-family:'DM Mono',monospace;font-size:.72rem;
+  line-height:1.7;color:var(--txt2);letter-spacing:.03em;text-align:left;width:100%;
+}
+.presente-share-row{display:flex;gap:8px;width:100%}
+.presente-share-btn{
+  flex:1;padding:12px;border-radius:12px;border:0;
+  background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;
+  font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  cursor:pointer;transition:.25s;
+}
+.presente-share-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(37,211,102,.35)}
+.presente-copy-btn{
+  padding:12px 16px;border-radius:12px;border:1px solid var(--border);
+  background:var(--bg2);color:var(--txt2);
+  font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;transition:.2s;white-space:nowrap;
+}
+.presente-copy-btn:hover{border-color:var(--accent2);color:var(--accent)}
+
+/* ── Revelar presentinho ── */
+#s-revelar{background:var(--bg)}
+.revelar-wrap{display:flex;flex-direction:column;align-items:center;gap:24px;padding:48px 24px;text-align:center}
+.revelar-envelope{font-size:5rem;line-height:1;cursor:pointer;transition:transform .4s ease;user-select:none}
+.revelar-envelope:hover{transform:scale(1.1) rotate(-3deg)}
+.revelar-envelope.aberto{animation:envelopeOpen .5s ease forwards}
+@keyframes envelopeOpen{0%{transform:scale(1)}30%{transform:scale(1.18) rotate(5deg)}60%{transform:scale(.95)}100%{transform:scale(1) rotate(0)}}
+.revelar-hint{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--txt3)}
+.revelar-title{font-size:1.8rem;font-weight:300;font-style:italic}
+.revelar-title em{color:var(--accent)}
+.revelar-desafio-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:18px;
+  padding:32px 28px;font-size:1.5rem;font-style:italic;line-height:1.5;
+  color:var(--txt);text-align:center;position:relative;overflow:hidden;
+  opacity:0;transition:opacity .5s ease;max-width:400px;width:100%;
+}
+.revelar-desafio-card.visible{opacity:1}
+.revelar-desafio-card::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(124,58,237,.12),transparent)}
+.revelar-desafio-card strong{color:var(--accent);font-style:normal}
+.revelar-de{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--txt3)}
 </style>
 </head>
 <body>
@@ -327,6 +408,11 @@ body::before{
           <div class="mode-icon">⚄</div>
           <div class="mode-name">Dados</div>
           <div class="mode-desc">Dois dados sorteiam uma ação e um lugar, alternando entre os jogadores</div>
+        </div>
+        <div class="mode-card" data-mode="presentinho" style="grid-column:1/-1">
+          <div class="mode-icon">🎁</div>
+          <div class="mode-name">Enviar Presentinho</div>
+          <div class="mode-desc">Escolha um desafio secreto e envie pelo WhatsApp — a outra pessoa abre e descobre</div>
         </div>
       </div>
     </div>
@@ -449,6 +535,60 @@ body::before{
     </div>
   </div>
 
+  <!-- ══ TELA: ENVIAR PRESENTINHO ══════════════════════════════════ -->
+  <div id="s-presentinho" class="screen">
+    <div class="card">
+      <div class="stitle">Quem envia?</div>
+      <div class="presente-player-toggle">
+        <button class="presente-player-btn active" id="presenteBtnH">🕺 Homem</button>
+        <button class="presente-player-btn" id="presenteBtnM">💃 Mulher</button>
+      </div>
+    </div>
+
+    <!-- Passo 1: categoria -->
+    <div class="card" id="presenteStepCat">
+      <div class="stitle">1 · Escolha a categoria</div>
+      <div class="presente-desafio-list" id="presenteCatList"></div>
+    </div>
+
+    <!-- Passo 2: desafio (oculto até categoria ser escolhida) -->
+    <div class="card" id="presenteStepDesafio" style="display:none">
+      <div class="stitle" id="presenteStepDesafioTitle">2 · Escolha o desafio</div>
+      <div class="presente-desafio-list" id="presenteDesafioList"></div>
+      <div class="presente-custom-wrap">
+        <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--txt3);margin-bottom:8px;margin-top:16px;">✍ Ou escreva um desafio personalizado</div>
+        <textarea id="presenteCustom" placeholder="Escreva aqui o seu desafio secreto…"></textarea>
+      </div>
+    </div>
+
+    <div id="presentePreviewCard" class="presente-preview-card" style="display:none">
+      <div class="presente-preview-icon">🎁</div>
+      <div class="presente-preview-title">Presentinho pronto</div>
+      <div class="presente-preview-desc" id="presentePreviewDesc"></div>
+      <div class="presente-preview-para">Mensagem que será enviada</div>
+      <div class="presente-msg-box" id="presenteMsgBox"></div>
+      <div class="presente-share-row">
+        <button class="presente-share-btn" id="presenteShareBtn">📲 Enviar pelo WhatsApp</button>
+        <button class="presente-copy-btn" id="presenteCopyBtn">Copiar link</button>
+      </div>
+    </div>
+    <button class="btn" id="presenteGerarBtn" style="margin-top:8px;display:none">Gerar presentinho ✦</button>
+    <button class="btn-back" id="voltarPresenteBtn">← Trocar modo</button>
+  </div>
+
+  <!-- ══ TELA: REVELAR PRESENTINHO ══════════════════════════════== -->
+  <div id="s-revelar" class="screen">
+    <div class="revelar-wrap">
+      <div class="revelar-hint">Você recebeu</div>
+      <div class="revelar-title">um <em>presentinho</em> secreto</div>
+      <div class="revelar-envelope" id="revelarEnvelope">🎁</div>
+      <div class="revelar-hint" id="revelarHint">Toque no presente para abrir</div>
+      <div class="revelar-desafio-card" id="revelarCard"></div>
+      <div class="revelar-de" id="revelarDe"></div>
+      <button class="btn-back" id="voltarRevelarBtn" style="margin-top:8px">← Voltar ao início</button>
+    </div>
+  </div>
+
 </div><!-- /wrapper -->
 
 <!-- Overlay: Secret -->
@@ -492,11 +632,15 @@ let jogadorDaVez=HOMEM, jogoIniciado=false;
 let modoAtual='classico', focadoCategoria=null;
 let secretPendingCb=null;
 
+// ── PRESENTINHO STATE ─────────────────────────────────────────
+let presenteRemetente='homem'; // 'homem' | 'mulher'
+let presenteDesafioSelecionado=null; // objeto desafio ou null (custom)
+
 // ════════════════════════════════════════════
 // DOM
 // ════════════════════════════════════════════
 const G=id=>document.getElementById(id);
-const screens=['s-login','s-mode','s-config','s-game','s-choice','s-dados','s-fim'];
+const screens=['s-login','s-mode','s-config','s-game','s-choice','s-dados','s-fim','s-presentinho','s-revelar'];
 
 function showScreen(id){
   screens.forEach(s=>G(s).classList.remove('active'));
@@ -620,7 +764,23 @@ G('entrarBtn').addEventListener('click',()=>{
   const u=(G('usuario').value||'').trim(),s=(G('senha').value||'').trim();
   if(u==='admin'&&s==='admin'){
     G('loginMsg').textContent='';
-    showScreen('s-mode');
+    if(presentePendente){
+      const payload=presentePendente;presentePendente=null;
+      history.replaceState(null,'',window.location.pathname);
+      const descricao=payload.d;
+      const nomeRem=(payload.r==='homem')?'ele':'ela';
+      const card=G('revelarCard');
+      card.innerHTML=descricao.replace(/\{HOMEM\}/g,'<strong>ele</strong>').replace(/\{MULHER\}/g,'<strong>ela</strong>');
+      G('revelarDe').textContent=`Enviado com carinho por ${nomeRem} ✦`;
+      revelarAberto=false;
+      G('revelarEnvelope').textContent='🎁';
+      G('revelarEnvelope').classList.remove('aberto');
+      G('revelarHint').textContent='Toque no presente para abrir';
+      card.classList.remove('visible');
+      showScreen('s-revelar');
+    }else{
+      showScreen('s-mode');
+    }
   }else{
     G('loginMsg').textContent='Credenciais inválidas.';
     G('senha').value='';G('senha').focus();
@@ -632,6 +792,15 @@ G('entrarBtn').addEventListener('click',()=>{
 G('modeGrid').querySelectorAll('.mode-card').forEach(card=>{
   card.addEventListener('click',()=>{
     modoAtual=card.dataset.mode;
+    if(modoAtual==='presentinho'){
+      nomeH=(G('nomeH').value||'').trim()||'Homem';
+      nomeM=(G('nomeM').value||'').trim()||'Mulher';
+      presenteRemetente='homem';
+      G('presenteBtnH').classList.add('active');G('presenteBtnM').classList.remove('active');
+      buildPresenteCatList();
+      showScreen('s-presentinho');
+      return;
+    }
     configureScreenForMode();
     showScreen('s-config');
   });
@@ -642,7 +811,8 @@ function configureScreenForMode(){
   // título
   const titulos={classico:'Configuração',secret:'Configuração · Secret',
     focado:'Configuração · Focado',submissa:'Configuração · Submissa',
-    dominadora:'Configuração · Dominadora',dados:'Configuração · Dados'};
+    dominadora:'Configuração · Dominadora',dados:'Configuração · Dados',
+    presentinho:'Enviar Presentinho'};
   G('cfg-titulo').textContent=titulos[m]||'Configuração';
   // desafios por nível
   G('cfg-nivel').style.display=(m==='classico'||m==='secret')?'block':'none';
@@ -888,12 +1058,208 @@ G('reiniciarBtn').addEventListener('click',()=>{
 });
 
 // ════════════════════════════════════════════
+// PRESENTINHO
+// ════════════════════════════════════════════
+
+// Desafios extras exclusivos do modo presentinho
+const DESAFIOS_PRESENTE_EXTRA=[
+  {nivel:3,categoria:'desafio',descricao:'Escolhe um lugar do seu corpo e deixa {HOMEM} explorar por 5 minutos sem restrições',jogador:'mulher',tempo:300},
+  {nivel:4,categoria:'desafio',descricao:'{MULHER} recebe uma massagem nos pés enquanto assiste ao seu programa favorito',jogador:'homem',tempo:0},
+  {nivel:5,categoria:'oral',descricao:'Faça sexo oral em {HOMEM} de surpresa, sem aviso prévio',jogador:'mulher',tempo:0},
+  {nivel:4,categoria:'preliminares',descricao:'Manda uma foto sua em lingerie para {HOMEM} enquanto ele estiver fora',jogador:'mulher',tempo:0},
+  {nivel:3,categoria:'desafio',descricao:'{HOMEM} prepara um banho quente para {MULHER} com velas e músicas',jogador:'homem',tempo:0},
+  {nivel:5,categoria:'submissão',descricao:'Faz o que {HOMEM} pedir sem questionar durante a próxima hora',jogador:'mulher',tempo:3600},
+  {nivel:6,categoria:'desafio',descricao:'Aparece de surpresa usando só uma camiseta e nada mais',jogador:'mulher',tempo:0},
+  {nivel:4,categoria:'desafio',descricao:'Manda uma mensagem de voz descrevendo o que você quer que {HOMEM} faça em você',jogador:'mulher',tempo:0},
+  {nivel:4,categoria:'desafio',descricao:'Beija {MULHER} por 2 minutos seguidos sem parar',jogador:'homem',tempo:120},
+  {nivel:5,categoria:'desafio',descricao:'Ganha uma massagem completa de {HOMEM} na hora que quiser nas próximas 48h',jogador:'mulher',tempo:0},
+];
+
+let presenteCatAtual=null;
+
+function presenteResetSteps(){
+  presenteDesafioSelecionado=null;
+  presenteCatAtual=null;
+  G('presenteStepDesafio').style.display='none';
+  G('presenteGerarBtn').style.display='none';
+  G('presentePreviewCard').style.display='none';
+  G('presentePreviewCard').classList.remove('visible');
+  G('presenteCustom').value='';
+}
+
+function buildPresenteCatList(){
+  presenteResetSteps();
+  const list=G('presenteCatList');list.innerHTML='';
+  const pool=[...todosDesafios,...DESAFIOS_PRESENTE_EXTRA].filter(d=>d.jogador===presenteRemetente);
+  const cats=[...new Set(pool.map(d=>d.categoria))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+  cats.forEach(cat=>{
+    const count=pool.filter(d=>d.categoria===cat).length;
+    const el=document.createElement('div');el.className='presente-desafio-item';
+    el.innerHTML=`<div class="pdi-cat">${CAT_EMOJI[cat]||'·'} ${count} desafios</div>${cat}`;
+    el.addEventListener('click',()=>{
+      list.querySelectorAll('.presente-desafio-item').forEach(e=>e.classList.remove('selected'));
+      el.classList.add('selected');
+      presenteCatAtual=cat;
+      buildPresenteDesafioList(cat);
+    });
+    list.appendChild(el);
+  });
+  const elCustom=document.createElement('div');elCustom.className='presente-desafio-item';
+  elCustom.innerHTML=`<div class="pdi-cat">✍ livre</div>Desafio personalizado`;
+  elCustom.addEventListener('click',()=>{
+    list.querySelectorAll('.presente-desafio-item').forEach(e=>e.classList.remove('selected'));
+    elCustom.classList.add('selected');
+    presenteCatAtual='__custom__';
+    buildPresenteDesafioList('__custom__');
+  });
+  list.appendChild(elCustom);
+}
+
+function buildPresenteDesafioList(cat){
+  presenteDesafioSelecionado=null;
+  G('presentePreviewCard').style.display='none';
+  G('presentePreviewCard').classList.remove('visible');
+  G('presenteGerarBtn').style.display='none';
+  G('presenteCustom').value='';
+  const step=G('presenteStepDesafio');
+  const list=G('presenteDesafioList');list.innerHTML='';
+  if(cat==='__custom__'){
+    G('presenteStepDesafioTitle').textContent='2 · Escreva o desafio';
+    list.style.display='none';
+    step.style.display='block';
+    G('presenteGerarBtn').style.display='block';
+    step.scrollIntoView({behavior:'smooth',block:'nearest'});
+    return;
+  }
+  list.style.display='flex';
+  G('presenteStepDesafioTitle').textContent=`2 · Escolha o desafio · ${CAT_EMOJI[cat]||''} ${cat}`;
+  const pool=[...todosDesafios,...DESAFIOS_PRESENTE_EXTRA]
+    .filter(d=>d.jogador===presenteRemetente&&d.categoria===cat)
+    .sort((a,b)=>a.nivel-b.nivel);
+  pool.forEach(d=>{
+    const el=document.createElement('div');el.className='presente-desafio-item';
+    el.innerHTML=`<div class="pdi-cat">nível ${d.nivel}</div>${d.descricao}`;
+    el.addEventListener('click',()=>{
+      list.querySelectorAll('.presente-desafio-item').forEach(e=>e.classList.remove('selected'));
+      el.classList.add('selected');
+      presenteDesafioSelecionado=d;
+      G('presenteCustom').value='';
+      G('presenteGerarBtn').style.display='block';
+      G('presenteGerarBtn').scrollIntoView({behavior:'smooth',block:'nearest'});
+    });
+    list.appendChild(el);
+  });
+  step.style.display='block';
+  step.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function presenteEncode(payload){
+  return btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+}
+function presenteDecode(str){
+  try{return JSON.parse(decodeURIComponent(escape(atob(str))));}catch(e){return null;}
+}
+
+function presenteGerarLink(descricao,remetente){
+  const payload={d:descricao,r:remetente,t:Date.now()};
+  const encoded=presenteEncode(payload);
+  // Usa o caminho do arquivo atual como base
+  const base=window.location.href.split('?')[0].split('#')[0];
+  return `${base}?p=${encoded}`;
+}
+
+G('presenteBtnH').addEventListener('click',()=>{
+  presenteRemetente='homem';
+  G('presenteBtnH').classList.add('active');G('presenteBtnM').classList.remove('active');
+  buildPresenteCatList();
+});
+G('presenteBtnM').addEventListener('click',()=>{
+  presenteRemetente='mulher';
+  G('presenteBtnM').classList.add('active');G('presenteBtnH').classList.remove('active');
+  buildPresenteCatList();
+});
+
+G('presenteGerarBtn').addEventListener('click',()=>{
+  const custom=(G('presenteCustom').value||'').trim();
+  let descricao='';
+  if(custom){
+    descricao=custom;
+  }else if(presenteDesafioSelecionado){
+    descricao=presenteDesafioSelecionado.descricao;
+  }else{
+    G('presenteCustom').focus();return;
+  }
+  const link=presenteGerarLink(descricao,presenteRemetente);
+  const nomeRem=presenteRemetente==='homem'?nomeH:nomeM;
+  const mensagem=`🎁 *Você recebeu um presentinho secreto...* ✨\n\nAbra o link abaixo para descobrir o que te espera…\n\n${link}\n\n_— Unanständigkeit_`;
+  G('presentePreviewDesc').innerHTML=descricao.replace(/\{HOMEM\}/g,`<strong>${nomeH||'ele'}</strong>`).replace(/\{MULHER\}/g,`<strong>${nomeM||'ela'}</strong>`);
+  G('presenteMsgBox').textContent=mensagem;
+  const card=G('presentePreviewCard');
+  card.style.display='flex';void card.offsetWidth;card.classList.add('visible');
+  card.scrollIntoView({behavior:'smooth',block:'nearest'});
+  G('presenteShareBtn').onclick=()=>{
+    const waUrl=`https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
+    window.open(waUrl,'_blank');
+  };
+  G('presenteCopyBtn').onclick=()=>{
+    navigator.clipboard.writeText(link).then(()=>{
+      G('presenteCopyBtn').textContent='✓ Copiado!';
+      setTimeout(()=>G('presenteCopyBtn').textContent='Copiar link',2000);
+    }).catch(()=>{
+      // fallback para browsers sem clipboard API
+      const ta=document.createElement('textarea');ta.value=link;
+      document.body.appendChild(ta);ta.select();document.execCommand('copy');
+      document.body.removeChild(ta);
+      G('presenteCopyBtn').textContent='✓ Copiado!';
+      setTimeout(()=>G('presenteCopyBtn').textContent='Copiar link',2000);
+    });
+  };
+});
+
+G('voltarPresenteBtn').addEventListener('click',()=>showScreen('s-mode'));
+
+// ── REVELAR ───────────────────────────────────────────────────
+let revelarAberto=false;
+G('revelarEnvelope').addEventListener('click',()=>{
+  if(revelarAberto)return;
+  revelarAberto=true;
+  const env=G('revelarEnvelope');
+  env.classList.add('aberto');
+  env.textContent='💌';
+  G('revelarHint').textContent='';
+  setTimeout(()=>{
+    const card=G('revelarCard');
+    card.classList.add('visible');
+    tocarSino();
+  },500);
+});
+G('voltarRevelarBtn').addEventListener('click',()=>{
+  // Limpa o parâmetro da URL e vai para login
+  history.replaceState(null,'',window.location.pathname);
+  showScreen('s-login');
+});
+
+// ════════════════════════════════════════════
 // BOOTSTRAP
 // ════════════════════════════════════════════
 const parsed=parseCSV(CSV);
 desafiosPorNivelMap=parsed.map;todosDesafios=parsed.all;
 categorias=[...new Set(todosDesafios.map(d=>d.categoria))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
 buildCatChips();
+
+// ── Verificar se há um presentinho na URL ────────────────────
+let presentePendente=null;
+(()=>{
+  const params=new URLSearchParams(window.location.search);
+  const p=params.get('p');
+  if(!p)return;
+  const payload=presenteDecode(p);
+  if(!payload||!payload.d)return;
+  // Guarda o payload e mostra um hint discreto no login
+  presentePendente=payload;
+  G('loginMsg').style.color='var(--accent)';
+  G('loginMsg').textContent='🎁 Você recebeu um presentinho. Entre para abrir.';
+})();
 })();
 </script>
 </body>
