@@ -200,6 +200,7 @@ window.LUGARES_H = [
   'a bunda','os seios','o pescoço','a virilha','os mamilos',
   'a barriga','os lábios','a orelha','as costas','o ânus',
   'as coxas','o clitóris','os pés','o umbigo','a nuca'
+  'o ânus', 'o ânus'
 ];
 
 window.ACOES_M = [
@@ -212,6 +213,6 @@ window.ACOES_M = [
 
 window.LUGARES_M = [
   'o pênis','as bolas','o pescoço','a virilha','os mamilos',
-  'a barriga','os lábios','a orelha','as costas','o ânus',
-  'as coxas','a nuca','o umbigo','os pés','a boca'
+  'a barriga','os lábios','a orelha','as costas',
+  'as coxas','a nuca','o umbigo','os pés','a boca','o pênis'
 ];
