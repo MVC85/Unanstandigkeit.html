@@ -15,8 +15,8 @@
 // ════════════════════════════════════════════
 
 window.DESAFIOS_CSV = `nivel|categoria|descricao|jogador|tempo
-3|banho|{MULHER} faz uma selfie enquanto chupa {HOMEM}|homem|0
-2|banho|{MULHER} faz espanhola deitada |homem|0
+3|desafio|{MULHER} faz uma selfie enquanto chupa {HOMEM}|homem|0
+2|peitos|{MULHER} faz espanhola deitada |homem|0
 4|anal|{HOMEM} acarecia as pregas do ânus da {MULHER}|homem|0
 5|anal|{HOMEM} lubrifica e massageia o ânus da {MULHER} com ela de quatro|homem|0
 3|anal|{MULHER} fique de quatro e empurre o rosto de {HOMEM} contra seu ânus|mulher|0
@@ -78,7 +78,7 @@ window.DESAFIOS_CSV = `nivel|categoria|descricao|jogador|tempo
 4|desafio|De quatro masturbe e dê palmadas em {MULHER} por 2 minutos|homem|120
 4|desafio|Ganha um "Vale boquete" para usar em 24 horas|mulher|0
 6|desafio|Faça um boquete em {HOMEM} até o orgasmo|mulher|0
-7|banho|Faça uma espanhola para {HOMEM} até ele gozar|mulher|0
+7|peitos|Faça uma espanhola para {HOMEM} até ele gozar|mulher|0
 5|desafio|Por 4 minutos, seja a empregada submissa do seu parceiro|mulher|240
 5|desafio|Faça um 69|mulher|0
 8|desafio|Limpe cuidadosamente {HOMEM} com sua língua, depois do orgasmo|mulher|0
@@ -199,7 +199,7 @@ window.ACOES_H = [
 window.LUGARES_H = [
   'a bunda','os seios','o pescoço','a virilha','os mamilos',
   'a barriga','os lábios','a orelha','as costas','o ânus',
-  'as coxas','o clitóris','os pés','o umbigo','a nuca'
+  'as coxas','o clitóris','os pés','o umbigo','a nuca',
   'o ânus', 'o ânus'
 ];
 
