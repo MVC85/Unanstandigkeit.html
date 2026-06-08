@@ -17,14 +17,14 @@
 window.DESAFIOS_CSV = `nivel|categoria|descricao|jogador|tempo
 3|desafio|{MULHER} faz uma selfie enquanto chupa {HOMEM}|homem|0
 2|peitos|{MULHER} faz espanhola deitada |homem|0
-4|anal|{HOMEM} acarecia as pregas do ânus da {MULHER}|homem|0
-5|anal|{HOMEM} lubrifica e massageia o ânus da {MULHER} com ela de quatro|homem|0
-3|anal|{MULHER} fique de quatro e empurre o rosto de {HOMEM} contra seu ânus|mulher|0
-3|anal|{HOMEM} dedo no ânus da {MULHER} com lubrificante|homem|0
-3|anal|{HOMEM} coloque a língua no ânus da {MULHER}|homem|0
-4|anal|{HOMEM} coloque a língua no ânus da {MULHER} com ela de quatro|homem|0
-6|anal|{HOMEM} coloque a cabeça do pênis no ânus de {MULHER}|homem|0
-9|anal|{HOMEM} coloque o pênis inteiro no ânus de {MULHER} e deixe ela fazer os movimentos|homem|0
+4|bumbum|{HOMEM} acarecia as pregas do ânus da {MULHER}|homem|0
+5|bumbum|{HOMEM} lubrifica e massageia o ânus da {MULHER} com ela de quatro|homem|0
+3|bumbum|{MULHER} fique de quatro e empurre o rosto de {HOMEM} contra seu ânus|mulher|0
+3|bumbum|{HOMEM} dedo no ânus da {MULHER} com lubrificante|homem|0
+3|bumbum|{HOMEM} coloque a língua no ânus da {MULHER}|homem|0
+4|bumbum|{HOMEM} coloque a língua no ânus da {MULHER} com ela de quatro|homem|0
+6|bumbum|{HOMEM} coloque a cabeça do pênis no ânus de {MULHER}|homem|0
+9|bumbum|{HOMEM} coloque o pênis inteiro no ânus de {MULHER} e deixe ela fazer os movimentos|homem|0
 1|banho|Lave o corpo de {HOMEM} usando os seios|mulher|0
 1|banho|Aponte para {HOMEM} quais partes do seu corpo ele deve lavar|mulher|0
 1|banho|Massegeie todo o corpo de {MULHER} com sabão|mulher|0
