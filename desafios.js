@@ -86,21 +86,21 @@ window.DESAFIOS_CSV = `nivel|categoria|descricao|jogador|tempo
 8|desafio|Faça uma dupla penetração em {MULHER} usando um vibrador ou brinquedo|homem|0
 7|desafio|Masturbe {MULHER} com uma mão e você mesmo com a outra|homem|0
 9|desafio|Limpe cuidadosamente {MULHER} com sua língua, depois do orgasmo|homem|0
-2|oral|Aponte 2 lugares em que quer ser beijada por {HOMEM}|mulher|0
-3|oral|Deixe o pênis de {HOMEM} molhado com a língua|mulher|0
-2|oral|Passe a língua no clitóris de {MULHER}|homem|0
-2|oral|Passe o pênis de {HOMEM} pelo seu rosto|mulher|0
-2|oral|{MULHER} oferece banquete, deita de lado e abre a bunda|mulher|0
-3|oral|Chupe os lábios externos de {MULHER}|homem|0
-3|oral|Faça sexo oral em {MULHER} deitada na mesa da cozinha|homem|0
-3|oral|Faça sexo oral em {HOMEM} deitada e com os braços para trás|mulher|0
-3|oral|Faça um boquete guloso em {HOMEM}|mulher|0
-4|oral|Passe a língua no ânus de {MULHER}|homem|0
-3|oral|Faça sexo oral em {MULHER}|homem|0
-3|oral|Faça sexo oral em {MULHER} enquanto massageia seus seios|homem|0
-4|oral|Faça sexo oral em {MULHER} enquanto deitada e segurando os joelhos|homem|0
-3|oral|Sugue o pênis de {HOMEM} com ele com as mãos presas|mulher|0
-4|oral|Agache no rosto de {HOMEM} e diga como e aonde quer ser chupada|mulher|0
+2|boca|Aponte 2 lugares em que quer ser beijada por {HOMEM}|mulher|0
+3|boca|Deixe o pênis de {HOMEM} molhado com a língua|mulher|0
+2|boca|Passe a língua no clitóris de {MULHER}|homem|0
+2|boca|Passe o pênis de {HOMEM} pelo seu rosto|mulher|0
+2|boca|{MULHER} oferece banquete, deita de lado e abre a bunda|mulher|0
+3|boca|Chupe os lábios externos de {MULHER}|homem|0
+3|boca|Faça sexo oral em {MULHER} deitada na mesa da cozinha|homem|0
+3|boca|Faça sexo oral em {HOMEM} deitada e com os braços para trás|mulher|0
+3|boca|Faça um boquete guloso em {HOMEM}|mulher|0
+4|boca|Passe a língua no ânus de {MULHER}|homem|0
+3|boca|Faça sexo oral em {MULHER}|homem|0
+3|boca|Faça sexo oral em {MULHER} enquanto massageia seus seios|homem|0
+4|boca|Faça sexo oral em {MULHER} enquanto deitada e segurando os joelhos|homem|0
+3|boca|Sugue o pênis de {HOMEM} com ele com as mãos presas|mulher|0
+4|boca|Agache no rosto de {HOMEM} e diga como e aonde quer ser chupada|mulher|0
 6|pesado|Faça uma garganta profunda em {HOMEM}|mulher|0
 8|pesado|Penetre {MULHER} enquanto massageia seu ânus|homem|0
 9|pesado|Penetração anal em {MULHER} de quatro enquanto a masturba e aperta seus seios|homem|0
