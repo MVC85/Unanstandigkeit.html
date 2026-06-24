@@ -274,14 +274,6 @@ body::before{
 
 /* ── Presentinho ── */
 .presente-sender{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
-.presente-player-toggle{display:flex;gap:8px;margin-bottom:4px}
-.presente-player-btn{
-  flex:1;padding:10px;border-radius:10px;border:1px solid var(--border);
-  background:var(--bg2);color:var(--txt2);
-  font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
-  cursor:pointer;transition:.2s;
-}
-.presente-player-btn.active{background:rgba(124,58,237,.2);border-color:var(--accent2);color:var(--accent)}
 .presente-desafio-list{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto;padding-right:4px}
 .presente-desafio-item{
   background:var(--bg2);border:1px solid var(--border);border-radius:12px;
@@ -537,28 +529,33 @@ body::before{
 
   <!-- ══ TELA: ENVIAR PRESENTINHO ══════════════════════════════════ -->
   <div id="s-presentinho" class="screen">
-    <div class="card">
-      <div class="stitle">Quem envia?</div>
-      <div class="presente-player-toggle">
-        <button class="presente-player-btn active" id="presenteBtnH">🕺 Homem</button>
-        <button class="presente-player-btn" id="presenteBtnM">💃 Mulher</button>
+
+    <!-- Passo 0: para quem é o presentinho -->
+    <div class="card" id="presenteStepDestino">
+      <div class="stitle">Para quem é o presentinho?</div>
+      <div class="mode-grid">
+        <div class="mode-card" id="presenteBtnH">
+          <div class="mode-icon">🕺</div>
+          <div class="mode-name">Enviar para ELE</div>
+          <div class="mode-desc">Ele recebe e cumpre o desafio</div>
+        </div>
+        <div class="mode-card" id="presenteBtnM">
+          <div class="mode-icon">💃</div>
+          <div class="mode-name">Enviar para ELA</div>
+          <div class="mode-desc">Ela recebe e cumpre o desafio</div>
+        </div>
       </div>
     </div>
 
-    <!-- Passo 1: categoria -->
-    <div class="card" id="presenteStepCat">
-      <div class="stitle">1 · Escolha a categoria</div>
-      <div class="presente-desafio-list" id="presenteCatList"></div>
-    </div>
-
-    <!-- Passo 2: desafio (oculto até categoria ser escolhida) -->
+    <!-- Passo 1: lista de desafios (direto, sem categorias) -->
     <div class="card" id="presenteStepDesafio" style="display:none">
-      <div class="stitle" id="presenteStepDesafioTitle">2 · Escolha o desafio</div>
+      <div class="stitle" id="presenteStepDesafioTitle">1 · Escolha o desafio</div>
       <div class="presente-desafio-list" id="presenteDesafioList"></div>
-      <div class="presente-custom-wrap">
-        <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--txt3);margin-bottom:8px;margin-top:16px;">✍ Ou escreva um desafio personalizado</div>
+      <div class="presente-custom-wrap" id="presenteCustomWrap" style="display:none">
+        <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--txt3);margin-bottom:8px;margin-top:16px;">✍ Escreva seu desafio personalizado</div>
         <textarea id="presenteCustom" placeholder="Escreva aqui o seu desafio secreto…"></textarea>
       </div>
+      <button class="btn-back" id="trocarDestinoBtn" style="margin-top:12px">← Trocar destinatário</button>
     </div>
 
     <div id="presentePreviewCard" class="presente-preview-card" style="display:none">
@@ -605,6 +602,7 @@ body::before{
 <div id="transition"></div>
 
 <script src="desafios.js"></script>
+<script src="desafios_presentinho.js"></script>
 <script>
 (()=>{
 // ════════════════════════════════════════════
@@ -795,9 +793,8 @@ G('modeGrid').querySelectorAll('.mode-card').forEach(card=>{
     if(modoAtual==='presentinho'){
       nomeH=(G('nomeH').value||'').trim()||'Homem';
       nomeM=(G('nomeM').value||'').trim()||'Mulher';
-      presenteRemetente='homem';
-      G('presenteBtnH').classList.add('active');G('presenteBtnM').classList.remove('active');
-      buildPresenteCatList();
+      presenteRemetente=null;
+      presenteMostrarStepDestino();
       showScreen('s-presentinho');
       return;
     }
@@ -1061,25 +1058,16 @@ G('reiniciarBtn').addEventListener('click',()=>{
 // PRESENTINHO
 // ════════════════════════════════════════════
 
-// Desafios extras exclusivos do modo presentinho
-const DESAFIOS_PRESENTE_EXTRA=[
-  {nivel:3,categoria:'desafio',descricao:'Escolhe um lugar do seu corpo e deixa {HOMEM} explorar por 5 minutos sem restrições',jogador:'mulher',tempo:300},
-  {nivel:4,categoria:'desafio',descricao:'{MULHER} recebe uma massagem nos pés enquanto assiste ao seu programa favorito',jogador:'homem',tempo:0},
-  {nivel:5,categoria:'oral',descricao:'Faça sexo oral em {HOMEM} de surpresa, sem aviso prévio',jogador:'mulher',tempo:0},
-  {nivel:4,categoria:'preliminares',descricao:'Manda uma foto sua em lingerie para {HOMEM} enquanto ele estiver fora',jogador:'mulher',tempo:0},
-  {nivel:3,categoria:'desafio',descricao:'{HOMEM} prepara um banho quente para {MULHER} com velas e músicas',jogador:'homem',tempo:0},
-  {nivel:5,categoria:'submissão',descricao:'Faz o que {HOMEM} pedir sem questionar durante a próxima hora',jogador:'mulher',tempo:3600},
-  {nivel:6,categoria:'desafio',descricao:'Aparece de surpresa usando só uma camiseta e nada mais',jogador:'mulher',tempo:0},
-  {nivel:4,categoria:'desafio',descricao:'Manda uma mensagem de voz descrevendo o que você quer que {HOMEM} faça em você',jogador:'mulher',tempo:0},
-  {nivel:4,categoria:'desafio',descricao:'Beija {MULHER} por 2 minutos seguidos sem parar',jogador:'homem',tempo:120},
-  {nivel:5,categoria:'desafio',descricao:'Ganha uma massagem completa de {HOMEM} na hora que quiser nas próximas 48h',jogador:'mulher',tempo:0},
-];
+// Bancos de desafios do modo presentinho — dedicados, carregados de desafios_presentinho.js
+const DESAFIOS_PRESENTE_ELE=window.DESAFIOS_PRESENTE_ELE||[];
+const DESAFIOS_PRESENTE_ELA=window.DESAFIOS_PRESENTE_ELA||[];
 
-let presenteCatAtual=null;
+const PRESENTE_CUSTOM_ID='__custom__';
 
-function presenteResetSteps(){
+function presenteMostrarStepDestino(){
+  presenteRemetente=null;
   presenteDesafioSelecionado=null;
-  presenteCatAtual=null;
+  G('presenteStepDestino').style.display='block';
   G('presenteStepDesafio').style.display='none';
   G('presenteGerarBtn').style.display='none';
   G('presentePreviewCard').style.display='none';
@@ -1087,70 +1075,62 @@ function presenteResetSteps(){
   G('presenteCustom').value='';
 }
 
-function buildPresenteCatList(){
-  presenteResetSteps();
-  const list=G('presenteCatList');list.innerHTML='';
-  const pool=[...todosDesafios,...DESAFIOS_PRESENTE_EXTRA].filter(d=>d.jogador===presenteRemetente);
-  const cats=[...new Set(pool.map(d=>d.categoria))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
-  cats.forEach(cat=>{
-    const count=pool.filter(d=>d.categoria===cat).length;
-    const el=document.createElement('div');el.className='presente-desafio-item';
-    el.innerHTML=`<div class="pdi-cat">${CAT_EMOJI[cat]||'·'} ${count} desafios</div>${cat}`;
-    el.addEventListener('click',()=>{
-      list.querySelectorAll('.presente-desafio-item').forEach(e=>e.classList.remove('selected'));
-      el.classList.add('selected');
-      presenteCatAtual=cat;
-      buildPresenteDesafioList(cat);
-    });
-    list.appendChild(el);
-  });
-  const elCustom=document.createElement('div');elCustom.className='presente-desafio-item';
-  elCustom.innerHTML=`<div class="pdi-cat">✍ livre</div>Desafio personalizado`;
-  elCustom.addEventListener('click',()=>{
-    list.querySelectorAll('.presente-desafio-item').forEach(e=>e.classList.remove('selected'));
-    elCustom.classList.add('selected');
-    presenteCatAtual='__custom__';
-    buildPresenteDesafioList('__custom__');
-  });
-  list.appendChild(elCustom);
+function presenteEscolherDestino(jogador){
+  presenteRemetente=jogador;
+  G('presenteStepDestino').style.display='none';
+  const nome=jogador==='homem'?(nomeH||'ele'):(nomeM||'ela');
+  G('presenteStepDesafioTitle').textContent=`1 · Escolha o desafio · presente para ${nome}`;
+  buildPresenteDesafioList();
+  G('presenteStepDesafio').style.display='block';
+  G('presenteStepDesafio').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
-function buildPresenteDesafioList(cat){
+function presenteSelecionarCustom(list){
+  list.querySelectorAll('.presente-desafio-item').forEach(e=>e.classList.remove('selected'));
+  list.querySelector(`[data-id="${PRESENTE_CUSTOM_ID}"]`).classList.add('selected');
+  presenteDesafioSelecionado=PRESENTE_CUSTOM_ID;
+  G('presenteCustomWrap').style.display='block';
+  G('presenteCustom').value='';
+  G('presenteGerarBtn').style.display='none';
+  G('presentePreviewCard').style.display='none';
+  G('presentePreviewCard').classList.remove('visible');
+  G('presenteCustom').focus();
+}
+
+function buildPresenteDesafioList(){
   presenteDesafioSelecionado=null;
   G('presentePreviewCard').style.display='none';
   G('presentePreviewCard').classList.remove('visible');
   G('presenteGerarBtn').style.display='none';
+  G('presenteCustomWrap').style.display='none';
   G('presenteCustom').value='';
-  const step=G('presenteStepDesafio');
   const list=G('presenteDesafioList');list.innerHTML='';
-  if(cat==='__custom__'){
-    G('presenteStepDesafioTitle').textContent='2 · Escreva o desafio';
-    list.style.display='none';
-    step.style.display='block';
-    G('presenteGerarBtn').style.display='block';
-    step.scrollIntoView({behavior:'smooth',block:'nearest'});
-    return;
-  }
-  list.style.display='flex';
-  G('presenteStepDesafioTitle').textContent=`2 · Escolha o desafio · ${CAT_EMOJI[cat]||''} ${cat}`;
-  const pool=[...todosDesafios,...DESAFIOS_PRESENTE_EXTRA]
-    .filter(d=>d.jogador===presenteRemetente&&d.categoria===cat)
-    .sort((a,b)=>a.nivel-b.nivel);
-  pool.forEach(d=>{
+
+  // "Desafio personalizado" sempre como primeira opção
+  const elCustom=document.createElement('div');
+  elCustom.className='presente-desafio-item';
+  elCustom.dataset.id=PRESENTE_CUSTOM_ID;
+  elCustom.innerHTML=`<div class="pdi-cat">✍ livre</div>Desafio personalizado`;
+  elCustom.addEventListener('click',()=>presenteSelecionarCustom(list));
+  list.appendChild(elCustom);
+
+  const banco=presenteRemetente==='homem'?DESAFIOS_PRESENTE_ELE:DESAFIOS_PRESENTE_ELA;
+  const pool=[...banco].sort((a,b)=>a.nivel-b.nivel);
+  pool.forEach((d,i)=>{
     const el=document.createElement('div');el.className='presente-desafio-item';
+    el.dataset.id=String(i);
     el.innerHTML=`<div class="pdi-cat">nível ${d.nivel}</div>${d.descricao}`;
     el.addEventListener('click',()=>{
       list.querySelectorAll('.presente-desafio-item').forEach(e=>e.classList.remove('selected'));
       el.classList.add('selected');
       presenteDesafioSelecionado=d;
+      G('presenteCustomWrap').style.display='none';
       G('presenteCustom').value='';
       G('presenteGerarBtn').style.display='block';
       G('presenteGerarBtn').scrollIntoView({behavior:'smooth',block:'nearest'});
     });
     list.appendChild(el);
   });
-  step.style.display='block';
-  step.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
 function presenteEncode(payload){
@@ -1168,26 +1148,25 @@ function presenteGerarLink(descricao,remetente){
   return `${base}?p=${encoded}`;
 }
 
-G('presenteBtnH').addEventListener('click',()=>{
-  presenteRemetente='homem';
-  G('presenteBtnH').classList.add('active');G('presenteBtnM').classList.remove('active');
-  buildPresenteCatList();
-});
-G('presenteBtnM').addEventListener('click',()=>{
-  presenteRemetente='mulher';
-  G('presenteBtnM').classList.add('active');G('presenteBtnH').classList.remove('active');
-  buildPresenteCatList();
+G('presenteBtnH').addEventListener('click',()=>presenteEscolherDestino('homem'));
+G('presenteBtnM').addEventListener('click',()=>presenteEscolherDestino('mulher'));
+G('trocarDestinoBtn').addEventListener('click',()=>presenteMostrarStepDestino());
+
+G('presenteCustom').addEventListener('input',()=>{
+  const val=(G('presenteCustom').value||'').trim();
+  G('presenteGerarBtn').style.display=val?'block':'none';
 });
 
 G('presenteGerarBtn').addEventListener('click',()=>{
   const custom=(G('presenteCustom').value||'').trim();
   let descricao='';
-  if(custom){
+  if(presenteDesafioSelecionado===PRESENTE_CUSTOM_ID){
+    if(!custom){G('presenteCustom').focus();return;}
     descricao=custom;
   }else if(presenteDesafioSelecionado){
     descricao=presenteDesafioSelecionado.descricao;
   }else{
-    G('presenteCustom').focus();return;
+    return;
   }
   const link=presenteGerarLink(descricao,presenteRemetente);
   const nomeRem=presenteRemetente==='homem'?nomeH:nomeM;
