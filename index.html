@@ -1175,6 +1175,7 @@ G('presenteGerarBtn').addEventListener('click',()=>{
   G('presenteMsgBox').textContent=mensagem;
   const card=G('presentePreviewCard');
   card.style.display='flex';void card.offsetWidth;card.classList.add('visible');
+  G('presenteGerarBtn').style.display='none';
   card.scrollIntoView({behavior:'smooth',block:'nearest'});
   G('presenteShareBtn').onclick=()=>{
     const waUrl=`https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
