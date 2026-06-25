@@ -605,6 +605,7 @@ body::before{
 
 <script src="desafios.js"></script>
 <script src="desafios_presentinho.js"></script>
+<script src="desafios_dados.js"></script>
 <script>
 (()=>{
 // ════════════════════════════════════════════
@@ -613,12 +614,10 @@ body::before{
 const CSV=window.DESAFIOS_CSV;
 
 // ════════════════════════════════════════════
-// DICE WORDS — carregados de desafios.js
+// DICE — banco dedicado, carregado de desafios_dados.js
 // ════════════════════════════════════════════
-const ACOES_H=window.ACOES_H;
-const LUGARES_H=window.LUGARES_H;
-const ACOES_M=window.ACOES_M;
-const LUGARES_M=window.LUGARES_M;
+const DADOS_HOMEM=window.DADOS_HOMEM||[];
+const DADOS_MULHER=window.DADOS_MULHER||[];
 
 // ════════════════════════════════════════════
 // STATE
@@ -926,50 +925,59 @@ function renderChoice(){
 
 // ── DICE ──────────────────────────────────────────────────────
 let diceJogador=HOMEM;
-let diceAcaoAtual='', diceLugarAtual='';
+let diceFraseAtual=null; // {parte1, parte2} sorteada da lista atual
 
-function diceListasAtual(){
-  return diceJogador===HOMEM
-    ? {acoes:ACOES_H, lugares:LUGARES_H}
-    : {acoes:ACOES_M, lugares:LUGARES_M};
+function diceListaAtual(){
+  return diceJogador===HOMEM ? DADOS_HOMEM : DADOS_MULHER;
 }
 function diceAtualizarJogador(){
   G('dicePlayerName').textContent=diceJogador===HOMEM?nomeH:nomeM;
   // resetar dados visualmente ao trocar jogador
-  diceAcaoAtual=''; diceLugarAtual='';
+  diceFraseAtual=null;
   G('die1').textContent='Toque para rolar';
   G('die2').textContent='Toque para rolar';
   G('diceResult').classList.remove('visible');
 }
 function diceAtualizarResultado(){
-  if(!diceAcaoAtual||!diceLugarAtual){G('diceResult').classList.remove('visible');return;}
+  if(!diceFraseAtual){G('diceResult').classList.remove('visible');return;}
   const executor=diceJogador===HOMEM?nomeH:nomeM;
   const alvo=diceJogador===HOMEM?nomeM:nomeH;
-  G('diceResult').innerHTML=`<strong>${executor}</strong>: ${diceAcaoAtual} <strong>${diceLugarAtual}</strong> de <strong>${alvo}</strong>`;
+  G('diceResult').innerHTML=`<strong>${executor}</strong>: ${diceFraseAtual.parte1} <strong>${diceFraseAtual.parte2}</strong> de <strong>${alvo}</strong>`;
   G('diceResult').classList.add('visible');
 }
 
-function rolarDado(el,lista,onDone){
-  el.classList.remove('rolling');void el.offsetWidth;el.classList.add('rolling');
-  el.textContent='…';
+function sortearFrase(lista){
+  return lista[Math.floor(Math.random()*lista.length)];
+}
+
+function rolarAmbosDados(){
+  const lista=diceListaAtual();
+  const frase=sortearFrase(lista);
+  diceFraseAtual=null;
+  G('diceResult').classList.remove('visible');
+  [G('die1'),G('die2')].forEach(el=>{
+    el.classList.remove('rolling');void el.offsetWidth;el.classList.add('rolling');
+    el.textContent='…';
+  });
   setTimeout(()=>{
-    const val=lista[Math.floor(Math.random()*lista.length)];
-    el.textContent=val;if(onDone)onDone(val);
+    G('die1').textContent=frase.parte1;
+    G('die2').textContent=frase.parte2;
+    diceFraseAtual=frase;
+    diceAtualizarResultado();
   },280);
 }
 
-G('die1').addEventListener('click',()=>{
-  rolarDado(G('die1'),diceListasAtual().acoes,v=>{diceAcaoAtual=v;diceAtualizarResultado();});
-});
-G('die2').addEventListener('click',()=>{
-  rolarDado(G('die2'),diceListasAtual().lugares,v=>{diceLugarAtual=v;diceAtualizarResultado();});
-});
+function rolarDadoIndividual(el){
+  // Rola só o visual deste dado, mas mantém a frase sincronizada:
+  // sorteia uma frase nova inteira e atualiza os dois dados juntos,
+  // garantindo que parte1 e parte2 sempre combinem.
+  rolarAmbosDados();
+}
+
+G('die1').addEventListener('click',rolarDadoIndividual);
+G('die2').addEventListener('click',rolarDadoIndividual);
 G('diceRollBtn').addEventListener('click',()=>{
-  const listas=diceListasAtual();
-  diceAcaoAtual='';diceLugarAtual='';
-  G('diceResult').classList.remove('visible');
-  rolarDado(G('die1'),listas.acoes,v=>{diceAcaoAtual=v;diceAtualizarResultado();});
-  rolarDado(G('die2'),listas.lugares,v=>{diceLugarAtual=v;diceAtualizarResultado();});
+  rolarAmbosDados();
   // passa a vez
   diceJogador=diceJogador===HOMEM?MULHER:HOMEM;
   diceAtualizarJogador();
@@ -990,7 +998,7 @@ function iniciarJogo(){
   // ── DADOS ──────────────────────────────────────────────────
   if(modoAtual==='dados'){
     showScreen('s-dados');btn.classList.add('hidden');
-    diceJogador=HOMEM;diceAcaoAtual='';diceLugarAtual='';
+    diceJogador=HOMEM;diceFraseAtual=null;
     G('die1').textContent='Toque para rolar';G('die2').textContent='Toque para rolar';
     G('diceResult').classList.remove('visible');
     diceAtualizarJogador();
