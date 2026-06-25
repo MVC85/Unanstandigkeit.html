@@ -15,9 +15,9 @@
 
 // Desafios para "Enviar para ELE" (o homem executa)
 window.DESAFIOS_PRESENTE_ELE=[
-  {nivel:4,descricao:'Ass play...',tempo:0},
-  {nivel:3,descricao:'Tits play...',tempo:0},
-  {nivel:4,descricao:'Beija {MULHER} por 2 minutos seguidos sem parar',tempo:120},
+  {nivel:0,descricao:'Ass play...',tempo:0},
+  {nivel:0,descricao:'Tits play...',tempo:0},
+  {nivel:0,descricao:'Mouth play...',tempo:0},
 ];
 
 // Desafios para "Enviar para ELA" (a mulher executa)
