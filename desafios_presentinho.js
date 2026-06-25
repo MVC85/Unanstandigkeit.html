@@ -18,6 +18,7 @@ window.DESAFIOS_PRESENTE_ELE=[
   {nivel:0,descricao:'Play freely with my ass...',tempo:0},
   {nivel:0,descricao:'Play freely with my tits...',tempo:0},
   {nivel:0,descricao:'Play freely with my mouth...',tempo:0},
+  {nivel:0,descricao:'I´ll suck you off...',tempo:0},
 ];
 
 // Desafios para "Enviar para ELA" (a mulher executa)
