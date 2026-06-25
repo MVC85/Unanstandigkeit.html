@@ -15,11 +15,14 @@
 
 // Desafios para "Enviar para ELE" (o homem executa)
 window.DESAFIOS_PRESENTE_ELE=[
-  {nivel:0,descricao:'Play freely with my ass...',tempo:0},
-  {nivel:0,descricao:'Play freely with my tits...',tempo:0},
-  {nivel:0,descricao:'Play freely with my mouth...',tempo:0},
+  {nivel:0,descricao:'Play with my ass...',tempo:0},
+  {nivel:0,descricao:'Play with my tits...',tempo:0},
+  {nivel:0,descricao:'Play with my mouth...',tempo:0},
   {nivel:0,descricao:'I´ll suck you off...',tempo:0},
   {nivel:0,descricao:'Happy-ending massage',tempo:0},
+  {nivel:0,descricao:'Dominant Session',tempo:0},
+  {nivel:0,descricao:'Submissive Session',tempo:0},
+  {nivel:0,descricao:'3 rounds of dices',tempo:0},
 ];
 
 // Desafios para "Enviar para ELA" (a mulher executa)
